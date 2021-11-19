@@ -13,9 +13,13 @@ class CreateClassesTable extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable();
+            $table->unsignedBigInteger('school_id')->nullable();
             $table->timestamps();
+            $table->foreign('school_id')->references('id')->on('schools');
         });
     }
 

@@ -13,6 +13,7 @@ class CreateBooksTable extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
@@ -21,9 +22,7 @@ class CreateBooksTable extends Migration
             $table->unsignedBigInteger('school_id')->nullable();
             $table->string('session')->nullable();
             $table->timestamps();
-            $table->foreign('school_id')->references('id')->on('schools')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+            $table->foreign('school_id')->references('id')->on('schools');
         });
     }
 

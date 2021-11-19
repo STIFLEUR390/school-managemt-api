@@ -33,9 +33,7 @@ class CreateUsersTable extends Migration
             $table->longText('watch_history')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('school_id')->references('id')->on('schools')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+            $table->foreign('school_id')->references('id')->on('schools');
         });
     }
 

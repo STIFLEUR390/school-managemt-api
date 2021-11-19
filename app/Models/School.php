@@ -21,4 +21,19 @@ class School extends Model
     {
         return $this->hasMany(Tutor::class);
     }
+
+    public function classes()
+    {
+        return $this->hasMany(Tutor::class);
+    }
+
+    public function book_issues()
+    {
+        return $this->hasMany(Book_issue::class);
+    }
+
+    public function class_rom()
+    {
+        return $this->hasMany(ClassRoom::class);
+    }
 }

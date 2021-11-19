@@ -13,6 +13,7 @@ class CreateStudentsTable extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('code')->nullable();
@@ -21,15 +22,9 @@ class CreateStudentsTable extends Migration
             $table->unsignedBigInteger('session')->nullable();
             $table->unsignedBigInteger('school_id')->nullable();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
-            $table->foreign('school_id')->references('id')->on('schools')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
-            $table->foreign('tutor_id')->references('id')->on('tutors')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('school_id')->references('id')->on('schools');
+            $table->foreign('tutor_id')->references('id')->on('tutors');
         });
     }
 

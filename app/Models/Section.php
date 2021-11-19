@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
+class Section extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    public function book_issues()
+    public function classe()
     {
-        return $this->hasMany(Book_issue::class);
+        return $this->belongsTo(Classe::class);
     }
 }

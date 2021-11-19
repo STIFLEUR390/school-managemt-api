@@ -13,6 +13,7 @@ class CreateAddonsTable extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('addons', function (Blueprint $table) {
             $table->id();
             $table->string('name');
