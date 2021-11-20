@@ -5,9 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DailyAttendance extends Model
+class Invoice extends Model
 {
     use HasFactory;
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
 
     public function classe()
     {
@@ -17,20 +22,5 @@ class DailyAttendance extends Model
     public function school()
     {
         return $this->belongsTo(School::class);
-    }
-
-    public function section()
-    {
-        return $this->belongsTo(Section::class);
-    }
-
-    public function session()
-    {
-        return $this->belongsTo(Session::class);
-    }
-
-    public function student()
-    {
-        return $this->belongsTo(Student::class);
     }
 }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DailyAttendance extends Model
+class Subject extends Model
 {
     use HasFactory;
 
@@ -19,18 +19,13 @@ class DailyAttendance extends Model
         return $this->belongsTo(School::class);
     }
 
-    public function section()
+    public function marks()
     {
-        return $this->belongsTo(Section::class);
+        return $this->hasMany(Mark::class);
     }
 
-    public function session()
+    public function syllabuses()
     {
-        return $this->belongsTo(Session::class);
-    }
-
-    public function student()
-    {
-        return $this->belongsTo(Student::class);
+        return $this->hasMany(Syllabuse::class);
     }
 }

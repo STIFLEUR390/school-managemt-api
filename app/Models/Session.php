@@ -10,4 +10,14 @@ class Session extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function daily_attendances()
+    {
+        return $this->hasMany(DailyAttendance::class);
+    }
+
+    public function syllabuses()
+    {
+        return $this->hasMany(Syllabuse::class);
+    }
 }
