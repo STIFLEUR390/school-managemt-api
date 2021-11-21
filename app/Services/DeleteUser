@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Services;
+
+use App\Models\User;
+use Illuminate\Http\Request;
+
+class DeleteUser
+{
+    public function delete_admin($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        $response = array(
+			'status' => true,
+			'notification' => __('admin_has_been_deleted_successfully')
+		);
+
+        return $response;
+    }
+}
