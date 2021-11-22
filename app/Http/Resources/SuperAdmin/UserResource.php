@@ -27,7 +27,7 @@ class UserResource extends JsonResource
     {
         return [
             'version' => '1.0.0',
-            'author_url_website' => url(env('AUTHOR_API_WEBSITE')),
+            'author_url_website' => env('AUTHOR_API_WEBSITE'),
             'author_name' => env('AUTHOR_API_NAME')
         ];
     }

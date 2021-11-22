@@ -13,7 +13,7 @@ class CreateUser
     {
 
         $customMessages = [
-            'email.unique' => __('sorry_this_email_has_been_taken')
+            'email.unique' => 'sorry_this_email_has_been_taken'
         ];
 
         $rules = [
@@ -47,7 +47,7 @@ class CreateUser
 
         $response = array(
             'status' => true,
-            'notification' => __('admin_added_successfully')
+            'notification' => 'admin_added_successfully'
         );
 
         return $response;
@@ -57,16 +57,16 @@ class CreateUser
     {
 
         $customMessages = [
-            'email.unique' => __('sorry_this_email_has_been_taken')
+            'email.unique' => 'sorry_this_email_has_been_taken'
         ];
 
         $rules = [
-            'name' => 'required|string|min:6',
+            'name' => 'required|regex:/^[\pL\s\-]+$/u',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6',
             'phone' => 'required|string|min:9|max:9',
-            'gender' => 'required|string',
-            'blood_group' => 'required|string|min:2|max:3',
+            'gender' => 'required|in:male,female,others',
+            'blood_group' => 'required|in:O+,O-,A+,A-,B+,B-,AB+,AB-',
             'address' => 'required|string',
             'about' => 'required|string',
             'facebook_link' => 'required|string',
@@ -117,7 +117,7 @@ class CreateUser
         
         $response = array(
             'status' => true,
-            'notification' => __('teacher_added_successfully')
+            'notification' => 'teacher_added_successfully'
         );
 
         return $response;

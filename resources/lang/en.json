@@ -1167,5 +1167,8 @@
     "admin_has_been_updated_successfully": "Admin has been updated successfully",
     "admin_has_been_deleted_successfully": "Admin has been deleted successfully",
     "admin_has_been_disabled_successfully": "Admin has been disabled successfully",
-    "admin_has_been_restored_successfully": "Admin has been restored successfully"
+    "admin_has_been_restored_successfully": "Admin has been restored successfully",
+    "teacher_has_been_deleted_successfully": "Teacher has been deleted successfully",
+    "teacher_has_been_disabled_successfully": "Teacher has been disabled successfully",
+    "teacher_has_been_restored_successfully": "Teacher has been restored successfully"
 }

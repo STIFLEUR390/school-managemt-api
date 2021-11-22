@@ -1167,5 +1167,8 @@
     "admin_has_been_updated_successfully": "L'administrateur a été mis à jour avec succès",
     "admin_has_been_deleted_successfully": "L'administrateur a été supprimé avec succès",
     "admin_has_been_disabled_successfully": "L'administrateur a été désactivé avec succès",
-    "admin_has_been_restored_successfully": "L'administrateur a été restauré avec succès"
+    "admin_has_been_restored_successfully": "L'administrateur a été restauré avec succès",
+    "teacher_has_been_deleted_successfully": "Le professeur a été supprimé avec succès",
+    "teacher_has_been_disabled_successfully": "Le professeur a été désactivé avec succès",
+    "teacher_has_been_restored_successfully": "Le professeur a été restauré avec succès"
 }
