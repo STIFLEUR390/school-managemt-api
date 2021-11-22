@@ -607,7 +607,6 @@
     "photos": "Photos",
     "gallery_photo_deleted": "Gallery photo deleted",
     "photos_of": "Photos of",
-    "admin_has_been_updated_successfully": "Admin has been updated successfully",
     "home": "Home",
     "noticeboard": "Noticeboard",
     "learn_more": "Learn more",
@@ -1163,5 +1162,10 @@
     "recaptcha_sitekey": "Recaptcha sitekey",
     "recaptcha_secretkey": "Recaptcha secretkey",
     "recaptcha_settings_updated": "Recaptcha settings updated",
-    "product_updated_successfully": "Product updated successfully"
+    "product_updated_successfully": "Product updated successfully",
+    "admin_has_been_inserted_successfully": "Admin has been inserted successfully",
+    "admin_has_been_updated_successfully": "Admin has been updated successfully",
+    "admin_has_been_deleted_successfully": "Admin has been deleted successfully",
+    "admin_has_been_disabled_successfully": "Admin has been disabled successfully",
+    "admin_has_been_restored_successfully": "Admin has been restored successfully"
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SuperAdmin\UserResource;
 use App\Models\User;
+use App\Services\CreateUser;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -32,9 +33,18 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, CreateUser $newUser)
     {
-        //
+        // 'superadmin','accountant','admin','librarian','parent','student','teacher'
+        if ($request->role == "admin") {
+            $response = $newUser->create_admin($request);
+        }
+
+        if ($request->role == "teacher") {
+            $response = $newUser->create_teacher($request);
+        }
+
+        return response()->json($response);
     }
 
     /**

@@ -38,6 +38,9 @@ Route::post('/reset-password-request', [PasswordResetRequestController::class, '
 
 Route::post('/change-password', [ChangePasswordController::class, 'passwordResetProcess']);
 
+#Super Admin route
 Route::middleware(['api', 'auth'])->group(function () {
-    Route::apiResource('user', UserController::class);
+    Route::prefix('superadmin')->group(function () {
+        Route::apiResource('user', UserController::class);
+    });
 });

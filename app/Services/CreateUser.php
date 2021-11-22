@@ -11,16 +11,22 @@ class CreateUser
 {
     public function create_admin(Request $request)
     {
-        
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|min:6',
-            'email' => 'required|email|unique:users,email',
+
+        $customMessages = [
+            'email.unique' => __('sorry_this_email_has_been_taken')
+        ];
+
+        $rules = [
+            'name' => 'required|regex:/^[\pL\s\-]+$/u',
+            'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6',
             'phone' => 'required|string|min:9|max:9',
-            'gender' => 'required|string',
-            'blood_group' => 'required|string|min:2|max:3',
+            'gender' => 'required|in:male,female,others',
+            'blood_group' => 'required|in:O+,O-,A+,A-,B+,B-,AB+,AB-',
             'address' => 'string'
-        ]);
+        ];
+        
+        $validator = Validator::make($request->all(), $rules, $customMessages);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
@@ -28,7 +34,6 @@ class CreateUser
 
         // creation de l'utilisateur
         $user = new User();
-        $user->school_id = 1;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
@@ -50,8 +55,12 @@ class CreateUser
 
     public function create_teacher(Request $request)
     {
-        
-        $validator = Validator::make($request->all(), [
+
+        $customMessages = [
+            'email.unique' => __('sorry_this_email_has_been_taken')
+        ];
+
+        $rules = [
             'name' => 'required|string|min:6',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6',
@@ -67,7 +76,9 @@ class CreateUser
             'designation' => 'required|string',
             'show_on_website' => 'required|string',
             'image' => 'file|mimes:jpeg,bmp,png,jpg,gif'
-        ]);
+        ];
+        
+        $validator = Validator::make($request->all(), $rules, $customMessages);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
@@ -75,7 +86,6 @@ class CreateUser
  
         // creation de l'utilisateur
         $user = new User();
-        $user->school_id = 1;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
@@ -98,7 +108,6 @@ class CreateUser
         // enregistrer l'enseignant
         $teacher = new Teacher();
         $teacher->user_id = $user->id;
-        $teacher->school_id = 1;
         $teacher->about = $request->about;
         $teacher->social_links = json_encode([ $request->facebook_link, $request->twitter_link, $request->linkedin_link ]);
         $teacher->department_id = $request->department_id;

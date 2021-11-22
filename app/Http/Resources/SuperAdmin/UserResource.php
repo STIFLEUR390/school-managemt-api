@@ -16,4 +16,19 @@ class UserResource extends JsonResource
     {
         return parent::toArray($request);
     }
+
+    /**
+     * Get additional data that should be returned with the resource array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function with($request)
+    {
+        return [
+            'version' => '1.0.0',
+            'author_url_website' => url(env('AUTHOR_API_WEBSITE')),
+            'author_name' => env('AUTHOR_API_NAME')
+        ];
+    }
 }

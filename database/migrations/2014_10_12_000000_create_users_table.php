@@ -26,9 +26,11 @@ class CreateUsersTable extends Migration
             $table->enum('role', ['superadmin', 'accountant', 'admin', 'librarian', 'parent', 'student', 'teacher'])->nullable();
             $table->rememberToken();
             $table->string('birthday')->nullable();
-            $table->string('gender')->nullable();
-            $table->string('blood_group')->nullable();
-            $table->unsignedBigInteger('school_id')->nullable();
+            // $table->string('gender')->nullable();
+            $table->enum('gender', ['male', 'female', 'others'])->nullable();
+            // $table->string('blood_group')->nullable();
+            $table->enum('blood_group', ['O+', 'O-', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-'])->nullable();
+            $table->unsignedBigInteger('school_id')->default('1');
             $table->string('authentication_key')->nullable();
             $table->longText('watch_history')->nullable();
             $table->timestamps();

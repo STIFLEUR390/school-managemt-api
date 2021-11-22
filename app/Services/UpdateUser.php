@@ -11,7 +11,11 @@ class UpdateUser
     public function update_admin(Request $request, $id)
     {
         
-        $validator = Validator::make($request->all(), [
+        $customMessages = [
+            'email.unique' => __('sorry_this_email_has_been_taken')
+        ];
+
+        $rules = [
             'name' => 'required|string|min:6',
             'email' => 'required|email|unique:users,email,'. $id .'',
             'password' => 'required|string|min:6',
@@ -19,14 +23,14 @@ class UpdateUser
             'gender' => 'required|string',
             'blood_group' => 'required|string|min:2|max:3',
             'address' => 'string'
-        ]);
+        ];
+        $validator = Validator::make($request->all(), $rules, $customMessages);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
         $user = User::findOrFail($id);
-        // $user->school_id = 1;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone;
