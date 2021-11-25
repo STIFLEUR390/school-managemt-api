@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SuperAdmin\UserResource;
 use App\Models\User;
 use App\Services\CreateUser;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +25,8 @@ class UserController extends Controller
         }
 
         // $users = (isset($request->role) && !empty($request->role)) ? User::whereRole($request->role)->get() : User::all();
-        return UserResource::collection($users);
+        // return UserResource::collection($users);
+        return $this->sendResponse(UserResource::collection($users), 'all_users');
     }
 
     /**
@@ -44,7 +46,8 @@ class UserController extends Controller
             $response = $newUser->create_teacher($request);
         }
 
-        return response()->json($response);
+        // return response()->json($response);
+        return $this->sendResponse($response);
     }
 
     /**

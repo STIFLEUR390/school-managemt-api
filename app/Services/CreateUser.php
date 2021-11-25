@@ -2,12 +2,13 @@
 
 namespace App\Services;
 
+use App\Http\Controllers\BaseController;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class CreateUser
+class CreateUser extends BaseController
 {
     public function create_admin(Request $request)
     {
@@ -17,9 +18,9 @@ class CreateUser
         ];
 
         $rules = [
-            'name' => 'required|regex:/^[\pL\s\-]+$/u',
+            'name' => 'required|string|min:3',
             'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:6',
+            // 'password' => 'required|string|min:6',
             'phone' => 'required|string|min:9|max:9',
             'gender' => 'required|in:male,female,others',
             'blood_group' => 'required|in:O+,O-,A+,A-,B+,B-,AB+,AB-',
@@ -29,14 +30,17 @@ class CreateUser
         $validator = Validator::make($request->all(), $rules, $customMessages);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            // return response()->json($validator->errors(), 422);
+            return $this->sendError($validator->errors());
         }
 
+        $code = rand(000000, 999999);
         // creation de l'utilisateur
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = bcrypt($request->password);
+        $user->password = bcrypt($code);
+        $user->code = $code;
         $user->phone = $request->phone;
         $user->gender = $request->gender;
         $user->blood_group = $request->blood_group;
@@ -81,7 +85,8 @@ class CreateUser
         $validator = Validator::make($request->all(), $rules, $customMessages);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            // return response()->json($validator->errors(), 422);
+            return $this->sendError($validator->errors());
         }
  
         // creation de l'utilisateur

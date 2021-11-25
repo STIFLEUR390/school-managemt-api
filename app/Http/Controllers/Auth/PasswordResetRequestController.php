@@ -40,7 +40,7 @@ class PasswordResetRequestController extends Controller
     }
 
     public function generateToken($email){
-      $isOtherToken = DB::table('recover_password')->where('email', $email)->first();
+      $isOtherToken = DB::table('password_resets')->where('email', $email)->first();
 
       if($isOtherToken) {
         return $isOtherToken->token;
@@ -52,10 +52,10 @@ class PasswordResetRequestController extends Controller
     }
 
     public function storeToken($token, $email){
-        DB::table('recover_password')->insert([
+        DB::table('password_resets')->insert([
             'email' => $email,
             'token' => $token,
-            'created' => Carbon::now()            
+            'created_at' => Carbon::now()            
         ]);
     }
 }

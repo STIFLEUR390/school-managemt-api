@@ -2,12 +2,13 @@
 
 namespace App\Services;
 
+use App\Http\Controllers\BaseController;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class UpdateUser
+class UpdateUser extends BaseController
 {
     public function update_admin(Request $request, $id)
     {
@@ -28,7 +29,8 @@ class UpdateUser
         $validator = Validator::make($request->all(), $rules, $customMessages);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            // return response()->json($validator->errors(), 422);
+            return $this->sendError($validator->errors());
         }
 
         $user = User::findOrFail($id);
@@ -74,7 +76,8 @@ class UpdateUser
         $validator = Validator::make($request->all(), $rules, $customMessages);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            // return response()->json($validator->errors(), 422);
+            return $this->sendError($validator->errors());
         }
 
         $user = User::findOrFail($id);

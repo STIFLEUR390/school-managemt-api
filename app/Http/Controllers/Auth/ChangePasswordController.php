@@ -17,7 +17,7 @@ class ChangePasswordController extends Controller
   
       // Verify if token is valid
       private function updatePasswordRow($request){
-         return DB::table('recover_password')->where([
+         return DB::table('password_resets')->where([
              'email' => $request->email,
              'token' => $request->passwordToken
          ]);
