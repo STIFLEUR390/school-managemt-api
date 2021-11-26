@@ -21,7 +21,7 @@ class CreateUser extends BaseController
             'name' => 'required|string|min:3',
             'email' => 'required|email|unique:users',
             // 'password' => 'required|string|min:6',
-            'phone' => 'required|string|min:9|max:9',
+            'phone' => 'required|string|min:9|max:9|unique:users,phone',
             'gender' => 'required|in:male,female,others',
             'blood_group' => 'required|in:O+,O-,A+,A-,B+,B-,AB+,AB-',
             'address' => 'string'
@@ -65,10 +65,10 @@ class CreateUser extends BaseController
         ];
 
         $rules = [
-            'name' => 'required|regex:/^[\pL\s\-]+$/u',
+            'name' => 'required|string|min:3',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6',
-            'phone' => 'required|string|min:9|max:9',
+            // 'password' => 'required|string|min:6',
+            'phone' => 'required|string|min:9|max:9|unique:users,phone',
             'gender' => 'required|in:male,female,others',
             'blood_group' => 'required|in:O+,O-,A+,A-,B+,B-,AB+,AB-',
             'address' => 'required|string',
@@ -89,11 +89,13 @@ class CreateUser extends BaseController
             return $this->sendError($validator->errors());
         }
  
+        $code = rand(000000, 999999);
         // creation de l'utilisateur
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = bcrypt($request->password);
+        $user->password = bcrypt($code);
+        $user->code = $code;
         $user->phone = $request->phone;
         $user->gender = $request->gender;
         $user->blood_group = $request->blood_group;

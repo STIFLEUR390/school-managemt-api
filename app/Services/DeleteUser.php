@@ -28,7 +28,7 @@ class DeleteUser
 
         $response = array(
 			'status' => true,
-			'notification' => $user->role.'_has_been_restored_successfully'
+			'notification' => 'admin_has_been_restored_successfully'
 		);
 
         return $response;

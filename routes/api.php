@@ -42,5 +42,6 @@ Route::post('/change-password', [ChangePasswordController::class, 'passwordReset
 // Route::middleware(['api', 'auth'])->group(function () { // a remetre apres integration coté vue et gestion du refresh token
     Route::prefix('superadmin')->group(function () {
         Route::apiResource('user', UserController::class);
+        Route::put('user/restore/{user}', [UserController::class, 'restore']);
     });
 // });

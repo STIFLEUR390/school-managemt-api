@@ -18,10 +18,10 @@ class UpdateUser extends BaseController
         ];
 
         $rules = [
-            'name' => 'required|regex:/^[\pL\s\-]+$/u',
+            'name' => 'required|string|min:3',
             'email' => 'required|email|unique:users,email,'. $id .'',
-            'password' => 'required|string|min:6',
-            'phone' => 'required|string|min:9|max:9',
+            // 'password' => 'required|string|min:6',
+            'phone' => 'required|string|min:9|max:9|unique:users,phone,'. $id .'',
             'gender' => 'required|in:male,female,others',
             'blood_group' => 'required|in:O+,O-,A+,A-,B+,B-,AB+,AB-',
             'address' => 'string'
@@ -57,10 +57,10 @@ class UpdateUser extends BaseController
         ];
 
         $rules = [
-            'name' => 'required|regex:/^[\pL\s\-]+$/u',
+            'name' => 'required|string|min:3',
             'email' => 'required|email|unique:users,email,'. $id .'',
-            'password' => 'required|string|min:6',
-            'phone' => 'required|string|min:9|max:9',
+            // 'password' => 'required|string|min:6',
+            'phone' => 'required|string|min:9|max:9|unique:users,phone,'. $id .'',
             'gender' => 'required|in:male,female,others',
             'blood_group' => 'required|in:O+,O-,A+,A-,B+,B-,AB+,AB-',
             'address' => 'required|string',
