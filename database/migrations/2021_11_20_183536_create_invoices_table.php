@@ -23,7 +23,7 @@ class CreateInvoicesTable extends Migration
             $table->longText('payment_method')->nullable();
             $table->unsignedBigInteger('paid_amount')->nullable();
             $table->longText('status')->nullable();
-            $table->unsignedBigInteger('school_id')->nullable();
+            $table->unsignedBigInteger('school_id')->default('1');
             $table->string('session')->nullable();
             $table->timestamps();
             $table->foreign('student_id')->references('id')->on('students');

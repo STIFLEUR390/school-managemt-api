@@ -19,7 +19,7 @@ class CreateBooksTable extends Migration
             $table->string('name')->nullable();
             $table->string('author')->nullable();
             $table->unsignedBigInteger('copies')->nullable();
-            $table->unsignedBigInteger('school_id')->nullable();
+            $table->unsignedBigInteger('school_id')->default('1');
             $table->string('session')->nullable();
             $table->timestamps();
             $table->foreign('school_id')->references('id')->on('schools');

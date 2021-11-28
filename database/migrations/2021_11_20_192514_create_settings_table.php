@@ -16,7 +16,7 @@ class CreateSettingsTable extends Migration
         Schema::disableForeignKeyConstraints();
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('school_id')->nullable();
+            $table->unsignedBigInteger('school_id')->default('1');
             $table->string('system_name')->nullable();
             $table->string('system_title')->nullable();
             $table->string('system_email')->nullable();

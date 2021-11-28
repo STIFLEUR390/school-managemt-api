@@ -19,7 +19,7 @@ class CreateExpensesTable extends Migration
             $table->unsignedBigInteger('expense_category_id')->nullable();
             $table->unsignedBigInteger('date')->nullable();
             $table->string('amount')->nullable();
-            $table->unsignedBigInteger('school_id')->nullable();
+            $table->unsignedBigInteger('school_id')->default('1');
             $table->string('session')->default('');
             $table->timestamps();
             $table->foreign('school_id')->references('id')->on('schools');

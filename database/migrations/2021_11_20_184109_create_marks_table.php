@@ -24,7 +24,7 @@ class CreateMarksTable extends Migration
             $table->unsignedBigInteger('mark_obtained')->nullable();
             $table->longText('comment')->nullable();
             $table->unsignedBigInteger('session')->nullable();
-            $table->unsignedBigInteger('school_id')->nullable();
+            $table->unsignedBigInteger('school_id')->default('1');
             $table->timestamps();
             $table->foreign('student_id')->references('id')->on('students');
             $table->foreign('subject_id')->references('id')->on('subjects');

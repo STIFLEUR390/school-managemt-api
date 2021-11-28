@@ -22,7 +22,7 @@ class CreateSyllabusesTable extends Migration
             $table->unsignedBigInteger('subject_id')->nullable();
             $table->string('file')->nullable();
             $table->unsignedBigInteger('session_id')->nullable();
-            $table->unsignedBigInteger('school_id')->nullable();
+            $table->unsignedBigInteger('school_id')->default('1');
             $table->timestamps();
             $table->foreign('class_id')->references('id')->on('classes');
             $table->foreign('section_id')->references('id')->on('sections');

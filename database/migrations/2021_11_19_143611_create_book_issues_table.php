@@ -21,7 +21,7 @@ class CreateBookIssuesTable extends Migration
             $table->unsignedBigInteger('student_id')->nullable();
             $table->string('issue_date')->nullable();
             $table->unsignedBigInteger('status')->default('0');
-            $table->unsignedBigInteger('school_id')->nullable();
+            $table->unsignedBigInteger('school_id')->default('1');
             $table->string('session')->nullable();
             $table->timestamps();
             $table->foreign('book_id')->references('id')->on('books');

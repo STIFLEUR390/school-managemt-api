@@ -1171,5 +1171,9 @@
     "admin_has_been_restored_successfully": "L'administrateur a été restauré avec succès",
     "teacher_has_been_deleted_successfully": "Le professeur a été supprimé avec succès",
     "teacher_has_been_disabled_successfully": "Le professeur a été désactivé avec succès",
-    "teacher_has_been_restored_successfully": "Le professeur a été restauré avec succès"
+    "teacher_has_been_restored_successfully": "Le professeur a été restauré avec succès",
+    "user_has_been_deleted_successfully": "L'utilisateur a été supprimé avec succès",
+    "user_has_been_disabled_successfully": "L'utilisateur a été désactivé avec succès",
+    "user_has_been_restored_successfully": "L'utilisateur a été restauré avec succès",
+    "required_blood_group": "Le champ groupe sanguin est obligatoire."
 }

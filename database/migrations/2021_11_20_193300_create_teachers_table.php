@@ -18,7 +18,7 @@ class CreateTeachersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('designation')->nullable();
-            $table->unsignedBigInteger('school_id')->nullable();
+            $table->unsignedBigInteger('school_id')->default('1');
             $table->longText('social_links')->nullable();
             $table->longText('about')->nullable();
             $table->unsignedBigInteger('show_on_website')->nullable();

@@ -1171,5 +1171,9 @@
     "admin_has_been_restored_successfully": "Admin has been restored successfully",
     "teacher_has_been_deleted_successfully": "Teacher has been deleted successfully",
     "teacher_has_been_disabled_successfully": "Teacher has been disabled successfully",
-    "teacher_has_been_restored_successfully": "Teacher has been restored successfully"
+    "teacher_has_been_restored_successfully": "Teacher has been restored successfully",
+    "user_has_been_deleted_successfully": "User has been deleted successfully",
+    "user_has_been_disabled_successfully": "User has been disabled successfully",
+    "user_has_been_restored_successfully": "User has been restored successfully",
+    "required_blood_group": "The blood group field is required."
 }

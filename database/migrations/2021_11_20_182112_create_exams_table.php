@@ -19,7 +19,7 @@ class CreateExamsTable extends Migration
             $table->string('name')->nullable();
             $table->string('starting_date')->nullable();
             $table->string('ending_date')->nullable();
-            $table->unsignedBigInteger('school_id')->nullable();
+            $table->unsignedBigInteger('school_id')->default('1');
             $table->unsignedBigInteger('session')->nullable();
             $table->timestamps();
             $table->foreign('school_id')->references('id')->on('schools');

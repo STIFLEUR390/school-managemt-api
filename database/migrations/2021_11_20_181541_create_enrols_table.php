@@ -19,7 +19,7 @@ class CreateEnrolsTable extends Migration
             $table->unsignedBigInteger('student_id')->nullable();
             $table->unsignedBigInteger('class_id')->nullable();
             $table->unsignedBigInteger('section_id')->nullable();
-            $table->unsignedBigInteger('school_id')->nullable();
+            $table->unsignedBigInteger('school_id')->default('1');
             $table->string('session')->nullable();
             $table->timestamps();
             $table->foreign('student_id')->references('id')->on('students');

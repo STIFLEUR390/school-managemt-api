@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\User;
 
 use App\Models\Teacher;
 use App\Models\TeacherPermission;
+use App\Models\Tutor;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,7 @@ class DeleteUser
 
         $response = array(
 			'status' => true,
-			'notification' => $user->role.'_has_been_disabled_successfully'
+			'notification' => 'user_has_been_disabled_successfully'
 		);
 
         return $response;
@@ -28,7 +29,7 @@ class DeleteUser
 
         $response = array(
 			'status' => true,
-			'notification' => 'admin_has_been_restored_successfully'
+			'notification' => 'user_has_been_restored_successfully'
 		);
 
         return $response;
@@ -40,13 +41,13 @@ class DeleteUser
 
         $response = array(
 			'status' => true,
-			'notification' => 'admin_has_been_deleted_successfully'
+			'notification' => 'user_has_been_deleted_successfully'
 		);
 
         return $response;
     }
 
-    public function teacher_delete_admin($id)
+    public function teacher_force_delete($id)
     {
         $user = User::withTrashed()->whereId($id)->firstOrFail()->forceDelete();
         $teacher = Teacher::where('user_id', $id)->get();
@@ -56,7 +57,21 @@ class DeleteUser
 
         $response = array(
 			'status' => true,
-			'notification' => 'teacher_has_been_deleted_successfully'
+			'notification' => 'user_has_been_deleted_successfully'
+		);
+
+        return $response;
+    }
+
+    public function parent_force_delete($id)
+    {
+        $user = User::withTrashed()->whereId($id)->firstOrFail()->forceDelete();
+        $teacher = Tutor::where('user_id', $id)->get();
+        $teacher->delete();
+
+        $response = array(
+			'status' => true,
+			'notification' => 'user_has_been_deleted_successfully'
 		);
 
         return $response;
