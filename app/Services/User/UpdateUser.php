@@ -3,8 +3,7 @@
 namespace App\Services\User;
 
 use App\Http\Controllers\BaseController;
-use App\Models\Teacher;
-use App\Models\User;
+use App\Models\{Teacher, User};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 

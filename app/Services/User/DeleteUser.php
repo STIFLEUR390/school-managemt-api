@@ -2,10 +2,7 @@
 
 namespace App\Services\User;
 
-use App\Models\Teacher;
-use App\Models\TeacherPermission;
-use App\Models\Tutor;
-use App\Models\User;
+use App\Models\{Teacher, TeacherPermission, Tutor, User};
 use Illuminate\Http\Request;
 
 class DeleteUser
