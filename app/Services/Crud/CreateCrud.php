@@ -7,7 +7,7 @@ use App\Models\{Classe, ClassRoom, Department, Section, Session, Subject};
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Validator;
 
-class CreateUser extends BaseController
+class CreateCrud extends BaseController
 {
     public function create_class(Request $request)
     {
