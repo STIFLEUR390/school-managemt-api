@@ -22,7 +22,8 @@ class UpdateUser extends BaseController
             'phone' => 'required|string|min:9|max:9|unique:users,phone,'. $id .'',
             'gender' => 'required|in:male,female,others',
             'blood_group' => 'required|in:O+,O-,A+,A-,B+,B-,AB+,AB-',
-            'address' => 'string'
+            'address' => 'string',
+            'image' => 'file|mimes:jpeg,bmp,png,jpg,gif'
         ];
         $validator = Validator::make($request->all(), $rules, $customMessages);
 
@@ -37,6 +38,18 @@ class UpdateUser extends BaseController
         $user->gender = $request->gender;
         $user->blood_group = $request->blood_group;
         $user->address = $request->address;
+
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            if ($user->image != 'upload/avatar.jpg') {
+                @unlink(public_path($user->image));
+            }
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file->move(public_path('upload/users'),$filename);
+            $user->image = 'upload/users/'.$filename;
+        }
+        
+        
         $user->save();
 
         $response = array(
@@ -60,7 +73,8 @@ class UpdateUser extends BaseController
             'phone' => 'required|string|min:9|max:9|unique:users,phone,'. $id .'',
             'gender' => 'required|in:male,female,others',
             'blood_group' => 'required|in:O+,O-,A+,A-,B+,B-,AB+,AB-',
-            'address' => 'string'
+            'address' => 'string',
+            'image' => 'file|mimes:jpeg,bmp,png,jpg,gif'
         ];
         $validator = Validator::make($request->all(), $rules, $customMessages);
 
@@ -75,6 +89,18 @@ class UpdateUser extends BaseController
         $user->gender = $request->gender;
         $user->blood_group = $request->blood_group;
         $user->address = $request->address;
+
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            if ($user->image != 'upload/avatar.jpg') {
+                @unlink(public_path($user->image));
+            }
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file->move(public_path('upload/users'),$filename);
+            $user->image = 'upload/users/'.$filename;
+        }
+        
+        
         $user->save();
 
         $response = array(
@@ -98,7 +124,8 @@ class UpdateUser extends BaseController
             'phone' => 'required|string|min:9|max:9|unique:users,phone,'. $id .'',
             'gender' => 'required|in:male,female,others',
             'blood_group' => 'required|in:O+,O-,A+,A-,B+,B-,AB+,AB-',
-            'address' => 'string'
+            'address' => 'string',
+            'image' => 'file|mimes:jpeg,bmp,png,jpg,gif'
         ];
         $validator = Validator::make($request->all(), $rules, $customMessages);
 
@@ -113,6 +140,18 @@ class UpdateUser extends BaseController
         $user->gender = $request->gender;
         $user->blood_group = $request->blood_group;
         $user->address = $request->address;
+
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            if ($user->image != 'upload/avatar.jpg') {
+                @unlink(public_path($user->image));
+            }
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file->move(public_path('upload/users'),$filename);
+            $user->image = 'upload/users/'.$filename;
+        }
+        
+        
         $user->save();
 
         $response = array(
@@ -138,7 +177,8 @@ class UpdateUser extends BaseController
             'phone' => 'required|string|min:9|max:9|unique:users,phone,'. $id .'',
             'gender' => 'required|in:male,female,others',
             'blood_group' => 'required|in:O+,O-,A+,A-,B+,B-,AB+,AB-',
-            'address' => 'string'
+            'address' => 'string',
+            'image' => 'file|mimes:jpeg,bmp,png,jpg,gif'
         ];
         $validator = Validator::make($request->all(), $rules, $customMessages);
 
@@ -154,6 +194,18 @@ class UpdateUser extends BaseController
         $user->gender = $request->gender;
         $user->blood_group = $request->blood_group;
         $user->address = $request->address;
+
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            if ($user->image != 'upload/avatar.jpg') {
+                @unlink(public_path($user->image));
+            }
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file->move(public_path('upload/users'),$filename);
+            $user->image = 'upload/users/'.$filename;
+        }
+        
+        
         $user->save();
 
         $response = array(
@@ -204,10 +256,13 @@ class UpdateUser extends BaseController
         $user->address = $request->address;
 
         if ($request->file('image')) {
-    		$file = $request->file('image');
+    		$file = $request->file('image');            
+            if ($user->image != 'upload/avatar.jpg') {
+                @unlink(public_path($user->image));
+            }
     		$filename = date('YmdHi').$file->getClientOriginalName();
     		$file->move(public_path('upload/users'),$filename);
-    		$user->image = $filename;
+    		$user->image = 'upload/users/'.$filename;
     	}
         
         $user->save();

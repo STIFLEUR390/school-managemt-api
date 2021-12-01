@@ -87,20 +87,29 @@ class UserController extends BaseController
             $response = $updateUser->update_admin($request, $id);
         }
 
-        if ($request->role == "teacher") {
+        else if ($request->role == "teacher") {
             $response = $updateUser->update_teacher($request, $id);
         }
         
-        if ($request->role == "librarian") {
+        else if ($request->role == "librarian") {
             $response = $updateUser->update_librarian($request, $id);
         }
         
-        if ($request->role == "accountant") {
+        else if ($request->role == "accountant") {
             $response = $updateUser->update_accountant($request, $id);
         }
         
-        if ($request->role == "parent") {
+        else if ($request->role == "parent") {
             $response = $updateUser->update_parent($request, $id);
+        }
+        else {
+            // $response = $this->sendError('Erreur');
+            $res = [
+                "request" => $request->all(),
+                "id" => $id
+            ];
+
+            $response = response()->json($res);
         }
 
          return $response;

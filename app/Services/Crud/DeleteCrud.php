@@ -3,7 +3,7 @@
 namespace App\Services\Crud;
 
 use App\Http\Controllers\BaseController;
-use App\Models\{Classe, ClassRoom, Department, Section, Session, Subject};
+use App\Models\{Classe, ClassRoom, Department, Routine, Section, Session, Subject, Syllabuse};
 use Illuminate\Http\Request;
 
 class DeleteCrud extends BaseController
@@ -74,6 +74,34 @@ class DeleteCrud extends BaseController
             'status' => true,
             'notification' => 'has_been_deleted_successfully',
             'name' => __('department')
+        ];
+
+        return $this->sendResponse($response);
+    }
+    
+    public function delete_syllabus($id)
+    {
+        $syllabuse = Syllabuse::findOrFail($id);
+        @unlink(public_path($syllabuse->file));
+        $syllabuse->delete();
+
+        $response = [
+            'status' => true,
+            'notification' => 'syllabus_deleted_successfully'
+        ];
+
+        return $this->sendResponse($response);
+    }
+    
+    public function delete_routine($id)
+    {
+        $classe = Routine::findOrFail($id);
+        $classe->delete();
+
+        $response = [
+            'status' => true,
+            'notification' => 'has_been_deleted_successfully',
+            'name' => __('routine')
         ];
 
         return $this->sendResponse($response);

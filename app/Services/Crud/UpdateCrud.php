@@ -3,7 +3,7 @@
 namespace App\Services\Crud;
 
 use App\Http\Controllers\BaseController;
-use App\Models\{Classe, ClassRoom, Department, Section, Session, Subject};
+use App\Models\{Classe, ClassRoom, Department, Routine, Section, Session, Subject};
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Validator;
 
@@ -116,6 +116,30 @@ class UpdateCrud extends BaseController
             'status' => true,
             'notification' => 'has_been_updated_successfully',
             'name' => __('department')
+        ];
+
+        return $this->sendResponse($response);
+    }
+
+    public function create_routine(Request $request, $id)
+    {
+        $routine = Routine::findOrFail($id);
+        $routine->class_id = $request->class_id;
+        $routine->section_id = $request->section_id;
+        $routine->subject_id = $request->subject_id;
+        $routine->teacher_id = $request->teacher_id;
+        $routine->room_id = $request->room_id;
+        $routine->day = $request->day;
+        $routine->starting_hour = $request->starting_hour;
+        $routine->starting_minute = $request->starting_minute;
+        $routine->ending_hour = $request->ending_hour;
+        $routine->ending_minute = $request->ending_minute;
+        $routine->save();
+
+        $response = [
+            'status' => true,
+            'notification' => 'has_been_updated_successfully',
+            'name' => __('routine')
         ];
 
         return $this->sendResponse($response);

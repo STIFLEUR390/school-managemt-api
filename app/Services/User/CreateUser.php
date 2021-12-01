@@ -44,6 +44,14 @@ class CreateUser extends BaseController
         $user->address = $request->address;
 		$user->role = 'parent';
 		$user->watch_history = '[]';
+
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file->move(public_path('upload/users'),$filename);
+            $user->image = 'upload/users/'.$filename;
+        }
+        
         $user->save();
 
         //enregistrer le parent dans la table tuteur
@@ -95,6 +103,15 @@ class CreateUser extends BaseController
         $user->address = $request->address;
 		$user->role = 'accountant';
 		$user->watch_history = '[]';
+
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file->move(public_path('upload/users'),$filename);
+            $user->image = 'upload/users/'.$filename;
+        }
+        
+        
         $user->save();
 
         $response = array(
@@ -140,6 +157,15 @@ class CreateUser extends BaseController
         $user->address = $request->address;
 		$user->role = 'librarian';
 		$user->watch_history = '[]';
+
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file->move(public_path('upload/users'),$filename);
+            $user->image = 'upload/users/'.$filename;
+        }
+        
+        
         $user->save();
 
         $response = array(
@@ -188,6 +214,15 @@ class CreateUser extends BaseController
         $user->address = $request->address;
 		$user->role = 'admin';
 		$user->watch_history = '[]';
+
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file->move(public_path('upload/users'),$filename);
+            $user->image = 'upload/users/'.$filename;
+        }
+        
+        
         $user->save();
 
         $response = array(
@@ -249,7 +284,7 @@ class CreateUser extends BaseController
     		$file = $request->file('image');
     		$filename = date('YmdHi').$file->getClientOriginalName();
     		$file->move(public_path('upload/users'),$filename);
-    		$user->image = $filename;
+    		$user->image = 'upload/users/'.$filename;
     	}
         
         $user->save();

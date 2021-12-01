@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Auth\ChangePasswordController;
-use App\Http\Controllers\Auth\PasswordResetRequestController;
-use App\Http\Controllers\SuperAdmin\UserController;
+use App\Http\Controllers\Auth\{AuthController, ChangePasswordController, PasswordResetRequestController};
+use App\Http\Controllers\SuperAdmin\{CrudController, DashboardController, UserController};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,5 +41,7 @@ Route::post('/change-password', [ChangePasswordController::class, 'passwordReset
     Route::prefix('superadmin')->group(function () {
         Route::apiResource('user', UserController::class);
         Route::put('user/restore/{user}', [UserController::class, 'restore']);
+        Route::get('dashboard', DashboardController::class);
+        Route::apiResource('crud', CrudController::class);
     });
 // });
