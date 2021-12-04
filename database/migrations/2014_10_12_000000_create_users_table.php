@@ -31,12 +31,11 @@ class CreateUsersTable extends Migration
             $table->enum('gender', ['male', 'female', 'others'])->nullable();
             // $table->string('blood_group')->nullable();
             $table->enum('blood_group', ['O+', 'O-', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-'])->nullable();
-            $table->unsignedBigInteger('school_id')->default('1');
+            $table->foreignId('school_id')->default('1')->constrained('schools')->cascadeOnDelete();
             $table->string('authentication_key')->nullable();
             $table->longText('watch_history')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('school_id')->references('id')->on('schools');
         });
     }
 

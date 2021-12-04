@@ -2,20 +2,27 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Services\Crud\{CreateCrud, DeleteCrud, GetCrud, UpdateCrud};
 use Illuminate\Http\Request;
 
-class CrudController extends Controller
+class CrudController extends BaseController
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, GetCrud $crud)
     {
-        //
+        if($request->getData == 'class') {
+            $response = $crud->getClasse();
+        } else {
+            $error = "aucune donnée";
+            $response = $this->sendError($error);
+        }
+
+        return $response;
     }
 
     /**
@@ -24,9 +31,16 @@ class CrudController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, CreateCrud $crud)
     {
-        //
+        if($request->getData == 'class') {
+            $response = $crud->create_class($request);
+        } else {
+            $error = "aucune donnée";
+            $response = $this->sendError($error);
+        }
+
+        return $response;
     }
 
     /**
@@ -35,9 +49,16 @@ class CrudController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request, GetCrud $crud)
     {
-        //
+        if($request->getData == 'class') {
+            $response = $crud->getClasseById($id);
+        } else {
+            $error = "aucune donnée";
+            $response = $this->sendError($error);
+        }
+
+        return $response;
     }
 
     /**
@@ -47,9 +68,16 @@ class CrudController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, UpdateCrud $crud)
     {
-        //
+        if($request->getData == 'class') {
+            $response = $crud->update_class($request, $id);
+        } else {
+            $error = "aucune donnée";
+            $response = $this->sendError($error);
+        }
+
+        return $response;
     }
 
     /**
@@ -58,8 +86,15 @@ class CrudController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id,Request $request, DeleteCrud $crud)
     {
-        //
+        if($request->getData == 'class') {
+            $response = $crud->delete_class($id);
+        } else {
+            $error = "aucune donnée";
+            $response = $this->sendError($error);
+        }
+
+        return $response;
     }
 }

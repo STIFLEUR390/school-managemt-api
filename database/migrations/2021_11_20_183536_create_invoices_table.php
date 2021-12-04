@@ -18,17 +18,14 @@ class CreateInvoicesTable extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->unsignedBigInteger('total_amount')->nullable();
-            $table->unsignedBigInteger('class_id')->nullable();
-            $table->unsignedBigInteger('student_id')->nullable();
+            $table->foreignId('student_id')->nullable()->constrained('students')->cascadeOnDelete();
+            $table->foreignId('class_id')->nullable()->constrained('classes')->cascadeOnDelete();
             $table->longText('payment_method')->nullable();
             $table->unsignedBigInteger('paid_amount')->nullable();
             $table->longText('status')->nullable();
-            $table->unsignedBigInteger('school_id')->default('1');
+            $table->foreignId('school_id')->default('1')->constrained('schools')->cascadeOnDelete();
             $table->string('session')->nullable();
             $table->timestamps();
-            $table->foreign('student_id')->references('id')->on('students');
-            $table->foreign('class_id')->references('id')->on('classes');
-            $table->foreign('school_id')->references('id')->on('schools');
         });
     }
 

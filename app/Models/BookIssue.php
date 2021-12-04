@@ -13,16 +13,21 @@ class BookIssue extends Model
 
     public function book()
     {
-        return $this->BelongsTo(Book::class);
+        return $this->BelongsTo(Book::class, 'book_id');
     }
 
     public function classe()
     {
-        return $this->BelongsTo(Classe::class);
+        return $this->BelongsTo(Classe::class, 'class_id');
+    }
+
+    public function student()
+    {
+        return $this->BelongsTo(Student::class, 'student_id');
     }
 
     public function school()
     {
-        return $this->BelongsTo(School::class);
+        return $this->BelongsTo(School::class, 'school_id');
     }
 }

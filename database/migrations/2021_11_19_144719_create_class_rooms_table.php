@@ -17,9 +17,8 @@ class CreateClassRoomsTable extends Migration
         Schema::create('class_rooms', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->unsignedBigInteger('school_id')->default('1');
+            $table->foreignId('school_id')->default('1')->constrained('schools')->cascadeOnDelete();
             $table->timestamps();
-            $table->foreign('school_id')->references('id')->on('schools');
         });
     }
 

@@ -19,10 +19,9 @@ class CreateExpensesTable extends Migration
             $table->unsignedBigInteger('expense_category_id')->nullable();
             $table->unsignedBigInteger('date')->nullable();
             $table->string('amount')->nullable();
-            $table->unsignedBigInteger('school_id')->default('1');
+            $table->foreignId('school_id')->default('1')->constrained('schools')->cascadeOnDelete();
             $table->string('session')->default('');
             $table->timestamps();
-            $table->foreign('school_id')->references('id')->on('schools');
         });
     }
 

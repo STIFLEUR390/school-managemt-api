@@ -16,11 +16,9 @@ class CreateTutorsTable extends Migration
         Schema::disableForeignKeyConstraints();
         Schema::create('tutors', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('school_id')->default('1');
+            $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete();
+            $table->foreignId('school_id')->default('1')->constrained('schools')->cascadeOnDelete();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('school_id')->references('id')->on('schools');
         });
     }
 

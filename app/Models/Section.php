@@ -13,7 +13,7 @@ class Section extends Model
 
     public function classe()
     {
-        return $this->belongsTo(Classe::class);
+        return $this->belongsTo(Classe::class, 'class_id');
     }
 
     public function daily_attendances()

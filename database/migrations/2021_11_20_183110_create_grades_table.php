@@ -21,10 +21,9 @@ class CreateGradesTable extends Migration
             $table->string('mark_from')->nullable();
             $table->string('mark_upto')->nullable();
             $table->longText('comment')->nullable();
-            $table->unsignedBigInteger('school_id')->default('1');
+            $table->foreignId('school_id')->default('1')->constrained('schools')->cascadeOnDelete();
             $table->string('session')->nullable();
             $table->timestamps();
-            $table->foreign('school_id')->references('id')->on('schools');
         });
     }
 

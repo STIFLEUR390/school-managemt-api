@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+//php artisan schedule:run  // sauvegarder la base de donnée chaque mois
+
+//php artisan backup:run pour sauvegarder la base de donnée

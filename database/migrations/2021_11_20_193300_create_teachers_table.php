@@ -16,15 +16,13 @@ class CreateTeachersTable extends Migration
         Schema::disableForeignKeyConstraints(); 
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete();
             $table->string('designation')->nullable();
-            $table->unsignedBigInteger('school_id')->default('1');
+            $table->foreignId('school_id')->default('1')->constrained('schools')->cascadeOnDelete();
             $table->longText('social_links')->nullable();
             $table->longText('about')->nullable();
             $table->unsignedBigInteger('show_on_website')->nullable();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('school_id')->references('id')->on('schools');
         });
     }
 

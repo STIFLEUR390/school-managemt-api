@@ -24,7 +24,7 @@ class School extends Model
 
     public function classes()
     {
-        return $this->hasMany(Tutor::class);
+        return $this->hasMany(Tutor::class, 'class_id');
     }
 
     public function book_issues()

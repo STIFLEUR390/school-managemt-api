@@ -17,18 +17,13 @@ class CreateDailyAttendancesTable extends Migration
         Schema::create('daily_attendances', function (Blueprint $table) {
             $table->id();
             $table->string('timestamp')->nullable();
-            $table->unsignedBigInteger('class_id')->nullable();
-            $table->unsignedBigInteger('section_id')->nullable();
-            $table->unsignedBigInteger('student_id')->nullable();
+            $table->foreignId('class_id')->nullable()->constrained('classes')->cascadeOnDelete();
+            $table->foreignId('section_id')->nullable()->constrained('sections')->cascadeOnDelete();
+            $table->foreignId('student_id')->nullable()->constrained('students')->cascadeOnDelete();
             $table->unsignedBigInteger('status')->nullable();
-            $table->unsignedBigInteger('session_id')->nullable();
-            $table->unsignedBigInteger('school_id')->default('1');
+            $table->foreignId('session_id')->nullable()->constrained('sessions')->cascadeOnDelete();
+            $table->foreignId('school_id')->default('1')->constrained('schools')->cascadeOnDelete();
             $table->timestamps();
-            $table->foreign('class_id')->references('id')->on('classes');
-            $table->foreign('section_id')->references('id')->on('sections');
-            $table->foreign('student_id')->references('id')->on('students');
-            $table->foreign('session_id')->references('id')->on('sessions');
-            $table->foreign('school_id')->references('id')->on('schools');
         });
     }
 

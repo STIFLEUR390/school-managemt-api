@@ -17,12 +17,10 @@ class CreateSubjectsTable extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->unsignedBigInteger('class_id')->nullable();
-            $table->unsignedBigInteger('school_id')->default('1');
+            $table->foreignId('class_id')->nullable()->constrained('classes')->cascadeOnDelete();
+            $table->foreignId('school_id')->default('1')->constrained('schools')->cascadeOnDelete();
             $table->string('session')->nullable();
             $table->timestamps();
-            $table->foreign('class_id')->references('id')->on('classes');
-            $table->foreign('school_id')->references('id')->on('schools');
         });
     }
 

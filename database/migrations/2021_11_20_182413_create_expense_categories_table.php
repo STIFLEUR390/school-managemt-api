@@ -17,10 +17,9 @@ class CreateExpenseCategoriesTable extends Migration
         Schema::create('expense_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->unsignedBigInteger('school_id')->default('1');
+            $table->foreignId('school_id')->default('1')->constrained('schools')->cascadeOnDelete();
             $table->unsignedBigInteger('session')->nullable();
             $table->timestamps();
-            $table->foreign('school_id')->references('id')->on('schools');
         });
     }
 

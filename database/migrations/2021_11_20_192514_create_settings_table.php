@@ -16,7 +16,7 @@ class CreateSettingsTable extends Migration
         Schema::disableForeignKeyConstraints();
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('school_id')->default('1');
+            $table->foreignId('school_id')->default('1')->constrained('schools')->cascadeOnDelete();
             $table->string('system_name')->nullable();
             $table->string('system_title')->nullable();
             $table->string('system_email')->nullable();
@@ -26,7 +26,6 @@ class CreateSettingsTable extends Migration
             $table->string('language')->nullable();
             $table->string('student_email_verification')->nullable();
             $table->timestamps();
-            $table->foreign('school_id')->references('id')->on('schools');
         });
     }
 

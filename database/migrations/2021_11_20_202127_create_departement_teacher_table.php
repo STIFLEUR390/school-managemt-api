@@ -13,13 +13,12 @@ class CreateDepartementTeacherTable extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('departement_teacher', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('department_id')->nullable();
-            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->foreignId('department_id')->nullable()->constrained('departments')->cascadeOnDelete();
+            $table->foreignId('teacher_id')->nullable()->constrained('teachers')->cascadeOnDelete();
             $table->timestamps();
-            $table->foreign('department_id')->references('id')->on('departments');
-            $table->foreign('teacher_id')->references('id')->on('teachers');
         });
     }
 

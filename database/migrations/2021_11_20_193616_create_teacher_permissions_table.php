@@ -16,17 +16,14 @@ class CreateTeacherPermissionsTable extends Migration
         Schema::disableForeignKeyConstraints();
         Schema::create('teacher_permissions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('class_id')->nullable();
-            $table->unsignedBigInteger('section_id')->nullable();
-            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->foreignId('class_id')->nullable()->constrained('classes')->cascadeOnDelete();
+            $table->foreignId('section_id')->nullable()->constrained('sections')->cascadeOnDelete();
+            $table->foreignId('teacher_id')->nullable()->constrained('teachers')->cascadeOnDelete();
             $table->unsignedBigInteger('marks')->default('0');
             $table->unsignedBigInteger('assignment')->default('0');
             $table->unsignedBigInteger('attendance')->default('0');
             $table->unsignedBigInteger('online_exam')->default('0');
             $table->timestamps();
-            $table->foreign('class_id')->references('id')->on('classes');
-            $table->foreign('section_id')->references('id')->on('sections');
-            $table->foreign('teacher_id')->references('id')->on('teachers');
         });
     }
 

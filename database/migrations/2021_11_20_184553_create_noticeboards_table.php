@@ -22,10 +22,9 @@ class CreateNoticeboardsTable extends Migration
             $table->unsignedBigInteger('status')->default('1');
             $table->unsignedBigInteger('show_on_website')->default('0');
             $table->text('image')->nullable();
-            $table->unsignedBigInteger('school_id')->default('1');
+            $table->foreignId('school_id')->default('1')->constrained('schools')->cascadeOnDelete();
             $table->unsignedBigInteger('session')->nullable();
             $table->timestamps();
-            $table->foreign('school_id')->references('id')->on('schools');
         });
     }
 
