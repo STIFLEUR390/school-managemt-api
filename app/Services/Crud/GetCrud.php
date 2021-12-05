@@ -3,17 +3,16 @@
 namespace App\Services\Crud;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Resources\SuperAdmin\ClasseResource;
-use App\Models\{Classe, Section, Syllabuse};
+use App\Http\Resources\SuperAdmin\{ClasseResource, ClassRoomResource, DepartmentResource, SubjectResource, SyllabusResource};
+use App\Models\{Classe, ClassRoom, Department, Section, Session, Subject, Syllabuse};
 use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\Validator;
 
 class GetCrud extends BaseController
 {
     public function getClasse()
     {
         $classes = Classe::with('sections')->where('school_id', 1)->get();
-        return $this->sendResponse($classes);
+        return $this->sendResponse(ClasseResource::collection($classes));
     }
 
     public function getClasseById($id)
@@ -34,9 +33,53 @@ class GetCrud extends BaseController
         return $this->sendResponse(new ClasseResource($sessions));
     }
 
+    public function getClasseromm()
+    {
+        $classrooms = ClassRoom::all();
+
+        return $this->sendResponse(ClassRoomResource::collection($classrooms));
+    }
+
+    public function getClasserommById($id)
+    {
+        $classrooms = ClassRoom::findOrFail($id);
+
+        return $this->sendResponse(new ClassRoomResource($classrooms));
+    }
+
     public function getSyllabusById($id)
     {
         $syllabus = Syllabuse::whereId($id)->firstOrFail();
-        return $this->sendResponse($syllabus);
+        return $this->sendResponse(new SyllabusResource($syllabus));
+    }
+
+    public function getSubject()
+    {
+        $subjects = Subject::all();
+        return $this->sendResponse(SubjectResource::collection($subjects));
+    }
+
+    public function getSubjectById($id)
+    {
+        $subject = Subject::findOrFail($id);
+        return $this->sendResponse(new SubjectResource($subject));
+    }
+    public function getDepartment($request)
+    {
+        $departments = Department::where('class_id', $request->class_id)->where('session', $this->active_session())->get();
+        return $this->sendResponse(DepartmentResource::collection($departments));
+    }
+
+    public function getDepartmentById($id)
+    {
+        $department = Department::findOrFail($id);
+        return $this->sendResponse(new DepartmentResource($department));
+    }
+
+    public function active_session()
+    {
+        $session_active = Session::where('status', 1)->firstOrFail();
+        
+        return $session_active->id;
     }
 }

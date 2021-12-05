@@ -17,7 +17,14 @@ class CrudController extends BaseController
     {
         if($request->getData == 'class') {
             $response = $crud->getClasse();
-        } else {
+        } else if ($request->getData == 'classroom') {
+            $response = $crud->getClasseromm();
+        } else if ($request->getData == 'department') {
+            $response = $crud->getDepartment($request);
+        } else if ($request->getData == 'subject') {
+            $response = $crud->getSubject();
+        }
+        else {
             $error = "aucune donnée";
             $response = $this->sendError($error);
         }
@@ -35,7 +42,14 @@ class CrudController extends BaseController
     {
         if($request->getData == 'class') {
             $response = $crud->create_class($request);
-        } else {
+        } else if ($request->getData == 'classroom') {
+            $response = $crud->create_class_room($request);
+        } else if ($request->getData == 'department') {
+            $response = $crud->create_departement($request);
+        } else if ($request->getData == 'subject') {
+            $response = $crud->create_subject($request);
+        }
+         else {
             $error = "aucune donnée";
             $response = $this->sendError($error);
         }
@@ -53,7 +67,14 @@ class CrudController extends BaseController
     {
         if($request->getData == 'class') {
             $response = $crud->getClasseById($id);
-        } else {
+        } else if ($request->getData == 'classroom') {
+            $response = $crud->getClasserommById($id);
+        } else if ($request->getData == 'department') {
+            $response = $crud->getDepartmentById($id);
+        } else if ($request->getData == 'subject') {
+            $response = $crud->getSubjectById($id);
+        }
+        else {
             $error = "aucune donnée";
             $response = $this->sendError($error);
         }
@@ -72,7 +93,14 @@ class CrudController extends BaseController
     {
         if($request->getData == 'class') {
             $response = $crud->update_class($request, $id);
-        } else {
+        } else if ($request->getData == 'classroom') {
+            $response = $crud->update_class_room($request, $id);
+        } else if ($request->getData == 'department') {
+            $response = $crud->update_departement($request, $id);
+        } else if ($request->getData == 'subject') {
+            $response = $crud->update_subject($request, $id);
+        } 
+        else {
             $error = "aucune donnée";
             $response = $this->sendError($error);
         }
@@ -90,7 +118,14 @@ class CrudController extends BaseController
     {
         if($request->getData == 'class') {
             $response = $crud->delete_class($id);
-        } else {
+        } else if($request->getData == 'classroom') {
+            $response = $crud->delete_class_room($id);
+        } else if ($request->getData == 'department') {
+            $response = $crud->delete_department($id);
+        } else if ($request->getData == 'subject') {
+            $response = $crud->delete_subject($id);
+        }
+        else {
             $error = "aucune donnée";
             $response = $this->sendError($error);
         }
