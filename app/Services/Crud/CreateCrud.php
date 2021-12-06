@@ -64,6 +64,7 @@ class CreateCrud extends BaseController
     {
         $class_rom = new Subject();
         $class_rom->name = $request->name;
+        $class_rom->session = $this->active_session();
         $class_rom->save();
 
         $response = [

@@ -53,9 +53,9 @@ class GetCrud extends BaseController
         return $this->sendResponse(new SyllabusResource($syllabus));
     }
 
-    public function getSubject()
+    public function getSubject($request)
     {
-        $subjects = Subject::all();
+        $subjects = Subject::where('class_id', $request->class_id)->where('session', $this->active_session())->get();
         return $this->sendResponse(SubjectResource::collection($subjects));
     }
 
@@ -64,9 +64,9 @@ class GetCrud extends BaseController
         $subject = Subject::findOrFail($id);
         return $this->sendResponse(new SubjectResource($subject));
     }
-    public function getDepartment($request)
+    public function getDepartment()
     {
-        $departments = Department::where('class_id', $request->class_id)->where('session', $this->active_session())->get();
+        $departments = Department::all();
         return $this->sendResponse(DepartmentResource::collection($departments));
     }
 

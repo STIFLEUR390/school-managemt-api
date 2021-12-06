@@ -20,9 +20,9 @@ class CrudController extends BaseController
         } else if ($request->getData == 'classroom') {
             $response = $crud->getClasseromm();
         } else if ($request->getData == 'department') {
-            $response = $crud->getDepartment($request);
+            $response = $crud->getDepartment();
         } else if ($request->getData == 'subject') {
-            $response = $crud->getSubject();
+            $response = $crud->getSubject($request);
         }
         else {
             $error = "aucune donnée";
