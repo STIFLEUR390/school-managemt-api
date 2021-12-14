@@ -37,11 +37,11 @@ Route::post('/reset-password-request', [PasswordResetRequestController::class, '
 Route::post('/change-password', [ChangePasswordController::class, 'passwordResetProcess']);
 
 #Super Admin route
-// Route::middleware(['api', 'auth'])->group(function () { // a remetre apres integration coté vue et gestion du refresh token
+Route::middleware(['api', 'auth'])->group(function () { // a remetre apres integration coté vue et gestion du refresh token
     Route::prefix('superadmin')->group(function () {
         Route::apiResource('user', UserController::class);
         Route::put('user/restore/{user}', [UserController::class, 'restore']);
         Route::get('dashboard', DashboardController::class);
         Route::apiResource('crud', CrudController::class);
     });
-// });
+});
