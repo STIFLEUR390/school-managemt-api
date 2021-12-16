@@ -73,6 +73,8 @@ class CrudController extends BaseController
             $response = $crud->getDepartmentById($id);
         } else if ($request->getData == 'subject') {
             $response = $crud->getSubjectById($id);
+        } else if ($request->getData == 'class_session') {
+            $response = $crud->getSectionByClassId($id);
         }
         else {
             $error = "aucune donnée";

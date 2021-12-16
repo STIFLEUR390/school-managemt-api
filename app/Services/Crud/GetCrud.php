@@ -82,4 +82,16 @@ class GetCrud extends BaseController
 
         return $session_active;
     }
+
+    public function getSectionByClassId($class_id)
+    {
+        $sections = Section::where('class_id', $class_id)->get();
+        $names = [];
+        foreach ($sections as $value) {
+            $names[] = $value->name;
+        }
+        $section_names = implode(',', $names);
+
+        return $this->sendResponse($section_names);
+    }
 }
