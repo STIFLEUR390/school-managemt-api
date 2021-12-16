@@ -21,7 +21,7 @@ class CreateDailyAttendancesTable extends Migration
             $table->foreignId('section_id')->nullable()->constrained('sections')->cascadeOnDelete();
             $table->foreignId('student_id')->nullable()->constrained('students')->cascadeOnDelete();
             $table->unsignedBigInteger('status')->nullable();
-            $table->foreignId('session_id')->nullable()->constrained('sessions')->cascadeOnDelete();
+            $table->foreignId('session_app_id')->nullable()->constrained('session_apps')->cascadeOnDelete();
             $table->foreignId('school_id')->default('1')->constrained('schools')->cascadeOnDelete();
             $table->timestamps();
         });

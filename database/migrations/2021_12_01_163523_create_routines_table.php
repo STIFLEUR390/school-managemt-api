@@ -25,8 +25,8 @@ class CreateRoutinesTable extends Migration
             $table->string('day')->default('');
             $table->foreignId('teacher_id')->nullable()->constrained('teachers')->cascadeOnDelete();
             $table->foreignId('room_id')->nullable()->constrained('class_rooms')->cascadeOnDelete();
-            $table->foreignId('school_id')->default('1')->constrained('schools')->cascadeOnDelete();
-            $table->foreignId('session_id')->nullable()->constrained('sessions')->cascadeOnDelete();
+            $table->foreignId('session_app_id')->default('1')->constrained('schools')->cascadeOnDelete();
+            $table->foreignId('session_id')->nullable()->constrained('session_apps')->cascadeOnDelete();
             $table->timestamps();
         });
     }

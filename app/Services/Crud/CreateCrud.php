@@ -3,7 +3,7 @@
 namespace App\Services\Crud;
 
 use App\Http\Controllers\BaseController;
-use App\Models\{Classe, ClassRoom, Department, Routine, Section, Session, Subject, Syllabuse};
+use App\Models\{Classe, ClassRoom, Department, Routine, Section, SessionApp, Subject, Syllabuse};
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Validator;
 
@@ -48,13 +48,13 @@ class CreateCrud extends BaseController
 
     public function create_session(Request $request)
     {
-        $class_rom = new Session();
+        $class_rom = new SessionApp();
         $class_rom->name = $request->name;
         $class_rom->save();
 
         $response = [
             'status' => true,
-            'notification' => 'section_has_been_added_successfully',
+            'notification' => 'session_has_been_added_successfully',
         ];
 
         return $this->sendResponse($response);
@@ -64,7 +64,8 @@ class CreateCrud extends BaseController
     {
         $class_rom = new Subject();
         $class_rom->name = $request->name;
-        $class_rom->session = $this->active_session();
+        $class_rom->class_id = $request->class_id;
+        $class_rom->session = $this->active_session()->name;
         $class_rom->save();
 
         $response = [
@@ -129,7 +130,7 @@ class CreateCrud extends BaseController
         $routine->starting_minute = $request->starting_minute;
         $routine->ending_hour = $request->ending_hour;
         $routine->ending_minute = $request->ending_minute;
-        $routine->session_id = $this->active_session();
+        $routine->session_id = $this->active_session()->id;
         $routine->save();
 
         $response = [
@@ -142,9 +143,9 @@ class CreateCrud extends BaseController
 
     public function active_session()
     {
-        $session_active = Session::where('status', 1)->firstOrFail();
-        
-        return $session_active->id;
+        $session_active = SessionApp::where('status', 1)->firstOrFail();
+
+        return $session_active;
     }
-    
+
 }

@@ -3,17 +3,17 @@
 namespace App\Services\Crud;
 
 use App\Http\Controllers\BaseController;
-use App\Models\{Classe, ClassRoom, Department, Routine, Section, Session, Subject, Syllabuse};
+use App\Models\{Classe, ClassRoom, Department, Routine, Section, SessionApp, Subject, Syllabuse};
 use Illuminate\Http\Request;
 
 class DeleteCrud extends BaseController
 {
     public function delete_class($id)
     {
+        Section::where('class_id', $id)->firstOrFail()->delete();
+
         $classe = Classe::findOrFail($id);
         $classe->delete();
-
-        Section::where('class_id', $id)->firstOrFail()->delete();
 
         $response = [
             'status' => true,
@@ -37,10 +37,10 @@ class DeleteCrud extends BaseController
 
         return $this->sendResponse($response);
     }
-    
+
     public function delete_session($id)
     {
-        $classe = Session::findOrFail($id);
+        $classe = SessionApp::findOrFail($id);
         $classe->delete();
 
         $response = [
@@ -50,7 +50,7 @@ class DeleteCrud extends BaseController
 
         return $this->sendResponse($response);
     }
-    
+
     public function delete_subject($id)
     {
         $classe = Subject::findOrFail($id);
@@ -64,7 +64,7 @@ class DeleteCrud extends BaseController
 
         return $this->sendResponse($response);
     }
-    
+
     public function delete_department($id)
     {
         $classe = Department::findOrFail($id);
@@ -78,7 +78,7 @@ class DeleteCrud extends BaseController
 
         return $this->sendResponse($response);
     }
-    
+
     public function delete_syllabus($id)
     {
         $syllabuse = Syllabuse::findOrFail($id);
@@ -92,7 +92,7 @@ class DeleteCrud extends BaseController
 
         return $this->sendResponse($response);
     }
-    
+
     public function delete_routine($id)
     {
         $classe = Routine::findOrFail($id);
@@ -106,5 +106,5 @@ class DeleteCrud extends BaseController
 
         return $this->sendResponse($response);
     }
-    
+
 }

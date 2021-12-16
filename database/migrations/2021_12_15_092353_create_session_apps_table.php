@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSectionsTable extends Migration
+class CreateSessionAppsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,10 @@ class CreateSectionsTable extends Migration
     public function up()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::create('sections', function (Blueprint $table) {
+        Schema::create('session_apps', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->foreignId('class_id')->nullable()->constrained('classes')->cascadeOnDelete();
+            $table->integer('status')->default('0');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateSectionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sections');
+        Schema::dropIfExists('session_apps');
     }
 }

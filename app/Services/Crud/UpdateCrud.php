@@ -3,7 +3,7 @@
 namespace App\Services\Crud;
 
 use App\Http\Controllers\BaseController;
-use App\Models\{Classe, ClassRoom, Department, Routine, Section, Session, Subject};
+use App\Models\{Classe, ClassRoom, Department, Routine, Section, SessionApp, Subject};
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Validator;
 
@@ -27,31 +27,14 @@ class UpdateCrud extends BaseController
 
     public function update_section(Request $request, $id)
     {
-        $sections = $request->sections;
-        $secion_names = $request->name;
+        $sections = explode(",", $request->name);
+        Section::where('class_id', $id)->delete();
 
-        foreach ($sections as $key => $value) {
-            if ($value == 0) {
-               $section = new Section();
-               $section->class_id = $id;
-               $section->name = $secion_names[$key];
-               $section->save();
-            }
-
-            if ($value != 0 && $value != 'delete') {
-                $section = Section::whereId($value)->where('class_id', $id)->first();
-                $section->name = $secion_names[$key];
-                $section->save();
-            }
-
-            $section_value = null;
-            if (strpos($value, 'delete') == true) {
-                $section_value = str_replace('delete', '', $value);
-            }
-
-            if ($value == $section_value.'delete') {
-                Section::whereId($section_value)->where('class_id', $id)->firstOrFail()->delete();
-            }
+        foreach ($sections as $name) {
+            $section = new Section();
+            $section->name = $name;
+            $section->class_id = $id;
+            $section->save();
         }
 
         $response = [
@@ -79,7 +62,7 @@ class UpdateCrud extends BaseController
 
     public function update_session(Request $request, $id)
     {
-        $class_rom = Session::findOrfail($id);
+        $class_rom = SessionApp::findOrfail($id);
         $class_rom->name = $request->name;
         $class_rom->save();
 
@@ -144,5 +127,5 @@ class UpdateCrud extends BaseController
 
         return $this->sendResponse($response);
     }
-    
+
 }

@@ -4,7 +4,7 @@ namespace App\Services\Crud;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Resources\SuperAdmin\{ClasseResource, ClassRoomResource, DepartmentResource, SubjectResource, SyllabusResource};
-use App\Models\{Classe, ClassRoom, Department, Section, Session, Subject, Syllabuse};
+use App\Models\{Classe, ClassRoom, Department, Section, SessionApp, Subject, Syllabuse};
 use Illuminate\Http\Request;
 
 class GetCrud extends BaseController
@@ -55,7 +55,7 @@ class GetCrud extends BaseController
 
     public function getSubject($request)
     {
-        $subjects = Subject::where('class_id', $request->class_id)->where('session', $this->active_session())->get();
+        $subjects = Subject::where('class_id', $request->class_id)->where('session', $this->active_session()->name)->get();
         return $this->sendResponse(SubjectResource::collection($subjects));
     }
 
@@ -78,8 +78,8 @@ class GetCrud extends BaseController
 
     public function active_session()
     {
-        $session_active = Session::where('status', 1)->firstOrFail();
-        
-        return $session_active->id;
+        $session_active = SessionApp::where('status', 1)->firstOrFail();
+
+        return $session_active;
     }
 }

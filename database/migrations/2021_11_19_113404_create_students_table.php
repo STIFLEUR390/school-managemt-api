@@ -20,7 +20,7 @@ class CreateStudentsTable extends Migration
             $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete();
             $table->foreignId('tutor_id')->nullable()->constrained('tutors')->cascadeOnDelete();
             $table->foreignId('school_id')->default('1')->constrained('schools')->cascadeOnDelete();
-            $table->unsignedBigInteger('session')->nullable();
+            $table->unsignedBigInteger('session_app')->nullable();
             $table->timestamps();
         });
     }

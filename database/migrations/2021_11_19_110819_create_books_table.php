@@ -20,7 +20,7 @@ class CreateBooksTable extends Migration
             $table->string('author')->nullable();
             $table->unsignedBigInteger('copies')->nullable();
             $table->foreignId('school_id')->default('1')->constrained('schools')->cascadeOnDelete();
-            $table->string('session')->nullable();
+            $table->string('session_app')->nullable();
             $table->timestamps();
         });
     }

@@ -99,7 +99,9 @@ class CrudController extends BaseController
             $response = $crud->update_departement($request, $id);
         } else if ($request->getData == 'subject') {
             $response = $crud->update_subject($request, $id);
-        } 
+        }  else if ($request->getData == 'class_section') {
+            $response = $crud->update_section($request, $id);
+        }
         else {
             $error = "aucune donnée";
             $response = $this->sendError($error);

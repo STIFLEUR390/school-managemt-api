@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('code')->nullable();
             $table->longText('address')->nullable();
             $table->string('phone')->unique()->nullable();
-            $table->text('image')->nullable();
+            $table->string('image')->default('upload/avatar.jpg');
             $table->enum('role', ['superadmin', 'accountant', 'admin', 'librarian', 'parent', 'student', 'teacher'])->nullable();
             $table->rememberToken();
             $table->string('birthday')->nullable();

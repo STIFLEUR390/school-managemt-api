@@ -21,7 +21,7 @@ class CreateBookIssuesTable extends Migration
             $table->foreignId('student_id')->nullable()->constrained('students')->cascadeOnDelete();
             $table->string('issue_date')->nullable();
             $table->foreignId('school_id')->default('1')->constrained('schools')->cascadeOnDelete();
-            $table->string('session')->nullable();
+            $table->string('session_app')->nullable();
             $table->timestamps();
         });
     }
