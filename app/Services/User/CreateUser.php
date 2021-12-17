@@ -24,7 +24,7 @@ class CreateUser extends BaseController
             'blood_group' => 'required|in:O+,O-,A+,A-,B+,B-,AB+,AB-',
             'address' => 'string'
         ];
-        
+
         $validator = Validator::make($request->all(), $rules, $customMessages);
 
         if ($validator->fails()) {
@@ -51,7 +51,7 @@ class CreateUser extends BaseController
             $file->move(public_path('upload/users'),$filename);
             $user->image = 'upload/users/'.$filename;
         }
-        
+
         $user->save();
 
         //enregistrer le parent dans la table tuteur
@@ -59,7 +59,7 @@ class CreateUser extends BaseController
         $tutor->school_id = 1;
         $tutor->user_id = $user->id;
         $tutor->save();
-        
+
         $response = array(
             'status' => true,
             'notification' => 'parent_added_successfully'
@@ -83,7 +83,7 @@ class CreateUser extends BaseController
             'blood_group' => 'required|in:O+,O-,A+,A-,B+,B-,AB+,AB-',
             'address' => 'string'
         ];
-        
+
         $validator = Validator::make($request->all(), $rules, $customMessages);
 
         if ($validator->fails()) {
@@ -110,8 +110,8 @@ class CreateUser extends BaseController
             $file->move(public_path('upload/users'),$filename);
             $user->image = 'upload/users/'.$filename;
         }
-        
-        
+
+
         $user->save();
 
         $response = array(
@@ -137,7 +137,7 @@ class CreateUser extends BaseController
             'blood_group' => 'required|in:O+,O-,A+,A-,B+,B-,AB+,AB-',
             'address' => 'string'
         ];
-        
+
         $validator = Validator::make($request->all(), $rules, $customMessages);
 
         if ($validator->fails()) {
@@ -164,8 +164,8 @@ class CreateUser extends BaseController
             $file->move(public_path('upload/users'),$filename);
             $user->image = 'upload/users/'.$filename;
         }
-        
-        
+
+
         $user->save();
 
         $response = array(
@@ -193,7 +193,7 @@ class CreateUser extends BaseController
             'blood_group' => 'required|in:O+,O-,A+,A-,B+,B-,AB+,AB-',
             'address' => 'string'
         ];
-        
+
         $validator = Validator::make($request->all(), $rules, $customMessages);
 
         if ($validator->fails()) {
@@ -221,8 +221,8 @@ class CreateUser extends BaseController
             $file->move(public_path('upload/users'),$filename);
             $user->image = 'upload/users/'.$filename;
         }
-        
-        
+
+
         $user->save();
 
         $response = array(
@@ -258,14 +258,14 @@ class CreateUser extends BaseController
             'show_on_website' => 'required|string',
             'image' => 'file|mimes:jpeg,bmp,png,jpg,gif'
         ];
-        
+
         $validator = Validator::make($request->all(), $rules, $customMessages);
 
         if ($validator->fails()) {
             // return response()->json($validator->errors(), 422);
             return $this->sendError($validator->errors(), 422);
         }
- 
+
         $code = rand(000000, 999999);
         // creation de l'utilisateur
         $user = new User();
@@ -286,7 +286,7 @@ class CreateUser extends BaseController
     		$file->move(public_path('upload/users'),$filename);
     		$user->image = 'upload/users/'.$filename;
     	}
-        
+
         $user->save();
 
         // enregistrer l'enseignant
@@ -295,15 +295,20 @@ class CreateUser extends BaseController
         $teacher->about = $request->about;
         $teacher->social_links = json_encode([ $request->facebook_link, $request->twitter_link, $request->linkedin_link ]);
         $teacher->department_id = $request->department_id;
-        $teacher->designation = $request->abodesignationut;
+        $teacher->designation = $request->designation;
         $teacher->show_on_website = $request->show_on_website;
         $teacher->save();
-        
+
         $response = array(
             'status' => true,
             'notification' => 'teacher_added_successfully'
         );
 
         return $this->sendResponse($response);
+    }
+
+    public function single_student_create(Request $request)
+    {
+        # code...
     }
 }
