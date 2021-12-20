@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Resources\SuperAdmin;
+namespace App\Http\Resources\Select2;
 
-use App\Http\Resources\Select2\SelectResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SubjectResource extends JsonResource
+class SelectResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,11 +17,7 @@ class SubjectResource extends JsonResource
         // return parent::toArray($request);
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'class_id' => $this->class_id,
-            'school_id' => $this->school_id,
-            'session' => $this->session,
-            'classe' => new SelectResource($this->classe),
+            'label' => $this->name,
         ];
     }
 }

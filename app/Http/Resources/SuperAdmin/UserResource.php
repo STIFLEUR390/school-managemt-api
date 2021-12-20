@@ -28,8 +28,9 @@ class UserResource extends JsonResource
             'gender' => $this->gender,
             'blood_group' => $this->blood_group,
             'watch_history' => $this->id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'teacher' => new TeacherResource($this->whenLoaded('teacher')),
+            // 'created_at' => $this->created_at,
+            // 'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,
         ];
     }

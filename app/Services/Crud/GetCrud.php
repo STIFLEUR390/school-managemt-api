@@ -3,6 +3,7 @@
 namespace App\Services\Crud;
 
 use App\Http\Controllers\BaseController;
+use App\Http\Resources\Select2\SelectResource;
 use App\Http\Resources\SuperAdmin\{ClasseResource, ClassRoomResource, DepartmentResource, SubjectResource, SyllabusResource};
 use App\Models\{Classe, ClassRoom, Department, Section, SessionApp, Subject, Syllabuse};
 use Illuminate\Http\Request;
@@ -14,6 +15,29 @@ class GetCrud extends BaseController
         $classes = Classe::with('sections')->where('school_id', 1)->get();
         return $this->sendResponse(ClasseResource::collection($classes));
     }
+
+    public function getClasseForSelect()
+    {
+        $classes = Classe::where('school_id', 1)->get();
+        return $this->sendResponse(SelectResource::collection($classes));
+    }
+
+    public function getDepartmentForSelect()
+    {
+        $departments = Department::where('school_id', 1)->get();
+        return $this->sendResponse(SelectResource::collection($departments));
+    }
+
+    /*public function getDepartmentForSelect()
+    {
+        $departments = Department::where('school_id', 1)->get();
+        $datas = [];
+        foreach ($departments as $value) {
+            $datas[$value->id] = $value->name;
+        }
+
+        return response()->json($datas);
+    }*/
 
     public function getClasseById($id)
     {
@@ -61,7 +85,7 @@ class GetCrud extends BaseController
 
     public function getSubjectById($id)
     {
-        $subject = Subject::findOrFail($id);
+        $subject = Subject::with(['classe'])->whereId($id)->first();
         return $this->sendResponse(new SubjectResource($subject));
     }
     public function getDepartment()

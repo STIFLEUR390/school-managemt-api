@@ -5,7 +5,7 @@ namespace App\Http\Resources\SuperAdmin;
 use App\Http\Resources\Select2\SelectResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SubjectResource extends JsonResource
+class TeacherResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,11 +18,14 @@ class SubjectResource extends JsonResource
         // return parent::toArray($request);
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'class_id' => $this->class_id,
-            'school_id' => $this->school_id,
-            'session' => $this->session,
-            'classe' => new SelectResource($this->classe),
+            'user' => new UserResource($this->whenLoaded('user')),
+            'department' => new SelectResource($this->whenLoaded('department')),
+            'designation' => $this->designation,
+            // 'school_id' => $this->school_id,
+            'social_links' => json_decode($this->social_links),
+            'about' => $this->about,
+            // 'show_on_website' => $this->show_on_website,
         ];
+
     }
 }

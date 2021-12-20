@@ -18,7 +18,12 @@ class UserController extends BaseController
     public function index(Request $request)
     {
         if (isset($request->role) && !empty($request->role)) {
-            $users = User::whereRole($request->role)->withTrashed()->get();
+            if ($request->role == 'teacher') {
+                $users = User::with(['teacher.department'])->whereRole($request->role)->withTrashed()->get();
+            } else {
+                $users = User::whereRole($request->role)->withTrashed()->get();
+            }
+            
         } else {
             $users = User::all();
         }
@@ -67,9 +72,13 @@ class UserController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        if ($request->role == 'teacher') {
+            $user = User::with(['teacher.department'])->whereId($id)->first();
+        } else {
+            $user = User::findOrFail($id);
+        }
         return $this->sendResponse( new UserResource($user));
     }
 

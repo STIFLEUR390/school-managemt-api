@@ -16,12 +16,12 @@ class Teacher extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }    
 
-    public function departements()
+    public function department()
     {
-        return $this->belongsToMany(Departement::class);
+        return $this->belongsTo(Department::class);
     }    
 
     public function teacher_permissions()
