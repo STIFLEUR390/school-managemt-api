@@ -95,6 +95,7 @@ return [
     'not_regex'            => "Le format du champ n'est pas valide.",
     'numeric'              => 'Ce champ doit contenir un nombre.',
     'password'             => 'Le mot de passe est incorrect',
+    'phone'                => 'Le champ :attribute contient un numéro invalide.',
     'present'              => 'Ce champ doit être présent.',
     'regex'                => 'Le format du champ est invalide.',
     'required'             => 'Ce champ est obligatoire.',

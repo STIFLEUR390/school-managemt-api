@@ -27,6 +27,8 @@ class CrudController extends BaseController
             $response = $crud->getDepartment();
         } else if ($request->getData == 'subject') {
             $response = $crud->getSubject($request);
+        } else if ($request->getData == 'teacher_permissions') {
+            $response = $crud->getPermissionByClass($request);
         }
         else {
             $error = "aucune donnée";
@@ -52,6 +54,8 @@ class CrudController extends BaseController
             $response = $crud->create_departement($request);
         } else if ($request->getData == 'subject') {
             $response = $crud->create_subject($request);
+        } else if ($request->getData == 'teacher_permissions') {
+            $response = $crud->create_teacher_permission($request);
         }
          else {
             $error = "aucune donnée";
@@ -79,6 +83,8 @@ class CrudController extends BaseController
             $response = $crud->getSubjectById($id);
         } else if ($request->getData == 'class_session') {
             $response = $crud->getSectionByClassId($id);
+        } else if ($request->getData == 'teacher_permissions') {
+            $response = $crud->getTeacherPermission($id);
         }
         else {
             $error = "aucune donnée";

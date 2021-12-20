@@ -3,8 +3,10 @@
 namespace App\Services\Crud;
 
 use App\Http\Controllers\BaseController;
-use App\Models\{Classe, ClassRoom, Department, Routine, Section, SessionApp, Subject, Syllabuse};
+use App\Models\{Classe, ClassRoom, Department, Routine, Section, SessionApp, Subject, Syllabuse, TeacherPermission};
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 // use Illuminate\Support\Facades\Validator;
 
 class CreateCrud extends BaseController
@@ -136,6 +138,26 @@ class CreateCrud extends BaseController
         $response = [
             'status' => true,
             'notification' => 'class_routine_added_successfully',
+        ];
+
+        return $this->sendResponse($response);
+    }
+
+    public function create_teacher_permission(Request $request)
+    {
+        $class_id = $request->class_id;
+        $section_id = $request->section_id;
+        $teacher_id = $request->teacher_id;
+        $column_name = (string)$request->column_name;
+        $value = $request->value;
+
+        $update = [$column_name => $value];
+        $search = ['class_id' => $class_id, 'section_id' => $section_id, 'teacher_id' => $teacher_id];
+        DB::table('teacher_permissions')->updateOrInsert($search, $update);
+
+        $response = [
+            'status' => true,
+            'notification' => 'permission_updated_successfully',
         ];
 
         return $this->sendResponse($response);

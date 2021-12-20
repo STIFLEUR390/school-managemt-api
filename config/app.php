@@ -67,7 +67,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    // 'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -168,6 +169,7 @@ return [
 
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         Spatie\Backup\BackupServiceProvider::class,
+        // Propaganistas\LaravelPhone\PhoneServiceProvider::class,
         /*
          * Application Service Providers...
          */

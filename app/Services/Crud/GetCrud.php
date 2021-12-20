@@ -4,8 +4,8 @@ namespace App\Services\Crud;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Resources\Select2\SelectResource;
-use App\Http\Resources\SuperAdmin\{ClasseResource, ClassRoomResource, DepartmentResource, SubjectResource, SyllabusResource};
-use App\Models\{Classe, ClassRoom, Department, Section, SessionApp, Subject, Syllabuse};
+use App\Http\Resources\SuperAdmin\{ClasseResource, ClassRoomResource, DepartmentResource, SubjectResource, SyllabusResource, TeacherPermissionResource, TeacherResource};
+use App\Models\{Classe, ClassRoom, Department, Section, SessionApp, Subject, Syllabuse, TeacherPermission};
 use Illuminate\Http\Request;
 
 class GetCrud extends BaseController
@@ -27,17 +27,6 @@ class GetCrud extends BaseController
         $departments = Department::where('school_id', 1)->get();
         return $this->sendResponse(SelectResource::collection($departments));
     }
-
-    /*public function getDepartmentForSelect()
-    {
-        $departments = Department::where('school_id', 1)->get();
-        $datas = [];
-        foreach ($departments as $value) {
-            $datas[$value->id] = $value->name;
-        }
-
-        return response()->json($datas);
-    }*/
 
     public function getClasseById($id)
     {
@@ -117,5 +106,23 @@ class GetCrud extends BaseController
         $section_names = implode(',', $names);
 
         return $this->sendResponse($section_names);
+    }
+
+    public function getTeacherPermission($teacher_id)
+    {
+        $permissions = TeacherPermission::with(['section', 'classe', 'teacher.user'])->where('teacher_id', $teacher_id)->get();
+        return $this->sendResponse(TeacherPermissionResource::collection($permissions));
+    }
+
+    public function getPermissionByClass($req)
+    {
+        $class_id = $req->class_id;
+        $section_id = $req->section_id;
+        $teacher_id = $req->teacher_id;
+
+        $search = ['class_id' => $class_id, 'section_id' => $section_id, 'teacher_id' => $teacher_id];
+        $permissions = TeacherPermission::with(['section', 'classe', 'teacher.user'])->where($search)->get();
+
+        return $this->sendResponse(TeacherPermissionResource::collection($permissions));
     }
 }
