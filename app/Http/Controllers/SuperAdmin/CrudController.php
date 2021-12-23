@@ -21,6 +21,8 @@ class CrudController extends BaseController
             $response = $crud->getClasseForSelect();
         } else if ($request->getData == 'department_for_select') {
             $response = $crud->getDepartmentForSelect();
+        } else if ($request->getData == 'section_for_select') {
+            $response = $crud->getSectionForSelect($request->class_id);
         } else if ($request->getData == 'classroom') {
             $response = $crud->getClasseromm();
         } else if ($request->getData == 'department') {
@@ -29,6 +31,8 @@ class CrudController extends BaseController
             $response = $crud->getSubject($request);
         } else if ($request->getData == 'teacher_permissions') {
             $response = $crud->getPermissionByClass($request);
+        } else if ($request->getData == 'all_teacher_permissions') {
+            $response = $crud->getAllTeacherPermission($request);
         }
         else {
             $error = "aucune donnée";

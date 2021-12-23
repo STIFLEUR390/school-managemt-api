@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\{BaseController, Controller};
-use App\Http\Resources\SuperAdmin\UserResource;
-use App\Models\User;
+use App\Http\Resources\SuperAdmin\{TeacherResource, UserResource};
+use App\Models\{Teacher, User};
 use App\Services\User\{CreateUser, DeleteUser, UpdateUser};
 use Illuminate\Http\Request;
 
@@ -19,18 +19,23 @@ class UserController extends BaseController
     {
         if (isset($request->role) && !empty($request->role)) {
             if ($request->role == 'teacher') {
-                $users = User::with(['teacher.department'])->whereRole($request->role)->withTrashed()->get();
+                $users = Teacher::with(['department', 'permissions.classe', 'user' => function($q) {
+                    $q->withTrashed()->get();
+                }])->get();
+                $response = TeacherResource::collection($users);
             } else {
                 $users = User::whereRole($request->role)->withTrashed()->get();
+                $response = UserResource::collection($users);
             }
-            
+
         } else {
             $users = User::all();
+            $response = UserResource::collection($users);
         }
 
         // $users = (isset($request->role) && !empty($request->role)) ? User::whereRole($request->role)->get() : User::all();
         // return UserResource::collection($users);
-        return $this->sendResponse(UserResource::collection($users), 'all_users');
+        return $this->sendResponse($response);
     }
 
     /**
@@ -99,15 +104,15 @@ class UserController extends BaseController
         else if ($request->role == "teacher") {
             $response = $updateUser->update_teacher($request, $id);
         }
-        
+
         else if ($request->role == "librarian") {
             $response = $updateUser->update_librarian($request, $id);
         }
-        
+
         else if ($request->role == "accountant") {
             $response = $updateUser->update_accountant($request, $id);
         }
-        
+
         else if ($request->role == "parent") {
             $response = $updateUser->update_parent($request, $id);
         }
@@ -140,7 +145,7 @@ class UserController extends BaseController
     public function restore($id, DeleteUser $delUser)
     {
         $response = $delUser->restore_user($id);
-        
+
         return $this->sendResponse($response);
     }
 }

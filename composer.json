@@ -12,6 +12,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "maatwebsite/excel": "^3.1",
+        "propaganistas/laravel-phone": "^4.3",
         "spatie/laravel-backup": "^6.16",
         "tymon/jwt-auth": "^1.0"
     },

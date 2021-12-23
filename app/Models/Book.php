@@ -11,6 +11,13 @@ class Book extends Model
 
     protected $guarded = [];
 
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['book_issues'];
+
     public function book_issues()
     {
         return $this->hasMany(Book_issue::class);

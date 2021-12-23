@@ -16,7 +16,7 @@ class TeacherPermissionResource extends JsonResource
     {
         // return parent::toArray($request);
         return [
-            'id' => $this->class_id,
+            'id' => $this->id,
             'classe' => new ClasseResource($this->whenLoaded('classe')),
             'section' => new SectionResource($this->whenLoaded('section')),
             'teacher' => new TeacherResource($this->whenLoaded('teacher')),

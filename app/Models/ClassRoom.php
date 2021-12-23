@@ -11,6 +11,13 @@ class ClassRoom extends Model
 
     protected $guarded = [];
 
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    // protected $with = ['school'];
+
     public function school()
     {
         return $this->belongsTo(School::class);

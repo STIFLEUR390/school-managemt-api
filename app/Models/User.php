@@ -58,7 +58,12 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getJWTCustomClaims() {
         return [];
-    }    
+    }
+
+    public function getImageAttribute($value)
+    {
+        return env('APP_URL').$value;
+    }
 
     public function school()
     {

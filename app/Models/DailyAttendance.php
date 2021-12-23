@@ -9,6 +9,13 @@ class DailyAttendance extends Model
 {
     use HasFactory;
 
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['classe', 'section', 'session', 'student'];
+
     public function classe()
     {
         return $this->belongsTo(Classe::class, 'class_id');

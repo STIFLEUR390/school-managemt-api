@@ -5,7 +5,7 @@ namespace App\Services\Crud;
 use App\Http\Controllers\BaseController;
 use App\Http\Resources\Select2\SelectResource;
 use App\Http\Resources\SuperAdmin\{ClasseResource, ClassRoomResource, DepartmentResource, SubjectResource, SyllabusResource, TeacherPermissionResource, TeacherResource};
-use App\Models\{Classe, ClassRoom, Department, Section, SessionApp, Subject, Syllabuse, TeacherPermission};
+use App\Models\{Classe, ClassRoom, Department, Section, SessionApp, Subject, Syllabuse, Teacher, TeacherPermission};
 use Illuminate\Http\Request;
 
 class GetCrud extends BaseController
@@ -20,6 +20,13 @@ class GetCrud extends BaseController
     {
         $classes = Classe::where('school_id', 1)->get();
         return $this->sendResponse(SelectResource::collection($classes));
+    }
+
+    public function getSectionForSelect($class_id)
+    {
+        
+        $sections = Section::where('class_id', $class_id)->get();
+        return $this->sendResponse(SelectResource::collection($sections));
     }
 
     public function getDepartmentForSelect()
@@ -121,8 +128,27 @@ class GetCrud extends BaseController
         $teacher_id = $req->teacher_id;
 
         $search = ['class_id' => $class_id, 'section_id' => $section_id, 'teacher_id' => $teacher_id];
-        $permissions = TeacherPermission::with(['section', 'classe', 'teacher.user'])->where($search)->get();
+        $permissions = TeacherPermission::with(['teacher.user'])->where($search)->get();
 
         return $this->sendResponse(TeacherPermissionResource::collection($permissions));
+    }
+
+    public function getAllTeacherPermission($req)
+    {
+        $class_id = $req->class_id;
+        $section_id = $req->section_id;
+        // $teacher_id = $req->teacher_id;
+
+        if (!(empty($section_id) || empty($class_id))) {
+            $search = ['class_id' => $class_id, 'section_id' => $section_id];
+            $teachers = Teacher::with(['user', 'permissions' => function($q) use ($search) {
+                $q->where($search)->get();
+            }])->get();
+
+            return $this->sendResponse(TeacherResource::collection($teachers));        
+        } else {
+            return $this->sendError('please_select_a_class_and_section');
+        }
+        
     }
 }

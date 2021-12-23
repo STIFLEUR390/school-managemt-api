@@ -11,6 +11,13 @@ class Classe extends Model
 
     protected $guarded = [];
 
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['sections'];
+
     public function school()
     {
         return $this->belongsTo(School::class);
@@ -54,10 +61,10 @@ class Classe extends Model
     public function syllabuses()
     {
         return $this->hasMany(Syllabuse::class);
-    }    
+    }
 
     public function teacher_permissions()
     {
-        return $this->hasMany(TeacherPermission::class);
-    }  
+        return $this->hasMany(TeacherPermission::class, 'class_id');
+    }
 }

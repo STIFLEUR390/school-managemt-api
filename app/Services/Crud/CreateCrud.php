@@ -157,7 +157,7 @@ class CreateCrud extends BaseController
 
         $response = [
             'status' => true,
-            'notification' => 'permission_updated_successfully',
+            'notification' => 'permission_updated_successfully.',
         ];
 
         return $this->sendResponse($response);
