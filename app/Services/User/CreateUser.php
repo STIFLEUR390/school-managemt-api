@@ -3,7 +3,7 @@
 namespace App\Services\User;
 
 use App\Http\Controllers\BaseController;
-use App\Models\{Teacher, Tutor, User};
+use App\Models\{Enrol, SessionApp, Student, Teacher, Tutor, User};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -348,6 +348,27 @@ class CreateUser extends BaseController
     	}
 
         $user->save();
+
+        $student = new Student();
+        $student->code = $this->matricule($user);
+        $student->user_id = $user->id;
+        $student->parent_id = $request->parent_id;
+        $student->session_app = $this->active_session()->id;
+        $student->save();
+
+        $enrol = new Enrol();
+        $enrol->student_id = $student->id;
+        $enrol->class_id = $request->class_id;
+        $enrol->section_id = $request->section_id;
+        $enrol->session = $this->active_session()->id;
+        $enrol->save();
+
+        $response = array(
+            'status' => true,
+            'notification' => 'student_added_successfully'
+        );
+
+        return $this->sendResponse($response);
     }
 
     public function matricule($user)
@@ -357,5 +378,12 @@ class CreateUser extends BaseController
 
         $matricule = $year.$user->id.$uuid;
         return $matricule;
+    }
+
+    public function active_session()
+    {
+        $session_active = SessionApp::where('status', 1)->firstOrFail();
+
+        return $session_active;
     }
 }
