@@ -1264,5 +1264,6 @@
     "paystack_secret_live_key": "Paystack secret live key",
     "maison": "Maison",
     "classroom_added_successfully": "Classroom added successfully",
-    "this_addon_is_already_deactivated": "This addon is already deactivated"
+    "this_addon_is_already_deactivated": "This addon is already deactivated",
+    "some_of_the_emails_have_been_taken": "Certains e-emails ont été pris"
 }

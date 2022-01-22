@@ -23,6 +23,8 @@ class CrudController extends BaseController
             $response = $crud->getDepartmentForSelect();
         } else if ($request->getData == 'section_for_select') {
             $response = $crud->getSectionForSelect($request->class_id);
+        } else if ($request->getData == 'parent_for_select') {
+            $response = $crud->getParentForSelect();
         } else if ($request->getData == 'classroom') {
             $response = $crud->getClasseromm();
         } else if ($request->getData == 'department') {

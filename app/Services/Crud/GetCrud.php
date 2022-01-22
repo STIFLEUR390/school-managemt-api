@@ -5,7 +5,7 @@ namespace App\Services\Crud;
 use App\Http\Controllers\BaseController;
 use App\Http\Resources\Select2\SelectResource;
 use App\Http\Resources\SuperAdmin\{ClasseResource, ClassRoomResource, DepartmentResource, SubjectResource, SyllabusResource, TeacherPermissionResource, TeacherResource};
-use App\Models\{Classe, ClassRoom, Department, Section, SessionApp, Subject, Syllabuse, Teacher, TeacherPermission};
+use App\Models\{Classe, ClassRoom, Department, Section, SessionApp, Subject, Syllabuse, Teacher, TeacherPermission, Tutor, User};
 use Illuminate\Http\Request;
 
 class GetCrud extends BaseController
@@ -24,9 +24,14 @@ class GetCrud extends BaseController
 
     public function getSectionForSelect($class_id)
     {
-        
+
         $sections = Section::where('class_id', $class_id)->get();
         return $this->sendResponse(SelectResource::collection($sections));
+    }
+
+    public function getParentForSelect(){
+        $parents = User::where('role', 'parent')->get()->latest();
+        return $this->sendResponse(SelectResource::collection($parents));
     }
 
     public function getDepartmentForSelect()
@@ -145,10 +150,10 @@ class GetCrud extends BaseController
                 $q->where($search)->get();
             }])->get();
 
-            return $this->sendResponse(TeacherResource::collection($teachers));        
+            return $this->sendResponse(TeacherResource::collection($teachers));
         } else {
             return $this->sendError('please_select_a_class_and_section');
         }
-        
+
     }
 }
