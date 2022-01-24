@@ -67,6 +67,14 @@ class UserController extends BaseController
             $response = $newUser->create_parent($request);
         }
 
+        if ($request->role == "student" && $request->method == 'single') {
+            $response = $newUser->single_student_create($request);
+        }
+
+        if ($request->role == "student" && $request->method == 'bulk') {
+            $response = $newUser->bulk_student_create($request);
+        }
+
         // return response()->json($response);
         return $response;
     }

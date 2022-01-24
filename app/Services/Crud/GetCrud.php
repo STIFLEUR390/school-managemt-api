@@ -18,25 +18,25 @@ class GetCrud extends BaseController
 
     public function getClasseForSelect()
     {
-        $classes = Classe::where('school_id', 1)->get();
+        $classes = Classe::where('school_id', 1)->latest()->get();
         return $this->sendResponse(SelectResource::collection($classes));
     }
 
     public function getSectionForSelect($class_id)
     {
 
-        $sections = Section::where('class_id', $class_id)->get();
+        $sections = Section::where('class_id', $class_id)->latest()->get();
         return $this->sendResponse(SelectResource::collection($sections));
     }
 
     public function getParentForSelect(){
-        $parents = User::where('role', 'parent')->get()->latest();
+        $parents = User::where('role', 'parent')->latest()->get();
         return $this->sendResponse(SelectResource::collection($parents));
     }
 
     public function getDepartmentForSelect()
     {
-        $departments = Department::where('school_id', 1)->get();
+        $departments = Department::where('school_id', 1)->latest()->get();
         return $this->sendResponse(SelectResource::collection($departments));
     }
 

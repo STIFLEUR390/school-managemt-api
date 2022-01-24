@@ -1265,5 +1265,6 @@
     "maison": "Maison",
     "classroom_added_successfully": "Classroom added successfully",
     "this_addon_is_already_deactivated": "This addon is already deactivated",
-    "some_of_the_emails_have_been_taken": "Certains e-emails ont été pris"
+    "some_of_the_emails_have_been_taken": "Certains e-emails ont été pris",
+    "sorry_this_phone_has_been_taken": "Désolé, ce numéro de télephone a été pris"
 }
