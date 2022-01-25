@@ -43,6 +43,6 @@ Route::middleware(['api', 'auth'])->group(function () { // a remetre apres integ
         Route::put('user/restore/{user}', [UserController::class, 'restore']);
         Route::get('dashboard', DashboardController::class);
         Route::apiResource('crud', CrudController::class);
-        Route::get('student/student-exel', [UserController::class, 'donwloadExcelToSubscripbeStudent']);
+        Route::get('student/student-excel', [UserController::class, 'donwloadExcelToSubscripbeStudent']);
     });
 });

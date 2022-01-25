@@ -101,7 +101,16 @@ class UserController extends BaseController
 
     public function donwloadExcelToSubscripbeStudent(CreateUser $user)
     {
-        $user->exportXlsFileToCreateStudent();
+        $notification = [
+            'fr' => env('APP_URL').'storage/excel_file/fr.student.generate.xlsx',
+            'en' => env('APP_URL').'storage/excel_file/en.student.generate.xlsx',
+        ];
+        $response = [
+            'status' => true,
+            'notification' => $notification,
+            'code' => 'successs'
+        ];
+        return $this->sendResponse($response);
     }
 
     /**

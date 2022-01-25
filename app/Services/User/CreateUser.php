@@ -434,10 +434,10 @@ class CreateUser extends BaseController
 
     public function exportXlsFileToCreateStudent()
     {
-        ini_set('max_execution_time', 0);
-        ini_set('memory_limit', '400M');
+        /*ini_set('max_execution_time', 0);
+        ini_set('memory_limit', '400M'); 
 
-        $customer_data = ['StudentName', 'Email', 'Phone', 'ParentID', 'Gender'];
+        $customer_data = [__('student_name'), __('email'), __('phone'), __('parent_id'), __('gender')."'male','female','others'"];
         try {
             $spreadsheet = new Spreadsheet();
             $spreadsheet->getActiveSheet()->getDefaultColumnDimension()->setWidth(20);
@@ -453,14 +453,24 @@ class CreateUser extends BaseController
 
         } catch (Exception $th) {
             return;
-        }
+        }*/
+        $notification = [
+            'fr' => env('APP_URL').'excel_file/fr.student.generate.xlsx',
+            'en' => env('APP_URL').'excel_file/en.student.generate.xlsx',
+        ];
+        $response = [
+            'status' => true,
+            'notification' => $notification,
+            'code' => 'successs'
+        ];
+        return $this->sendResponse($response);
     }
 
     public function exel_student_create(Request $request)
     {
 
         $rules = [
-            'exel' => 'required|file|mimes:xls,xlsx',
+            'excel' => 'required|file|mimes:xls,xlsx',
             'class_id' => 'required',
             'section_id' => 'required'
         ];
@@ -477,7 +487,7 @@ class CreateUser extends BaseController
             return $this->sendError($validator->errors(), 422);
         }
 
-        $file = $request->file('exel');
+        $file = $request->file('excel');
 
         try {
             $spreadsheet = IOFactory::load($file->getRealPath());
