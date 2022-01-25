@@ -29,7 +29,7 @@ Route::group([
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
-    Route::get('/user-profile', [AuthController::class, 'userProfile']);    
+    Route::get('/user-profile', [AuthController::class, 'userProfile']);
 });
 
 Route::post('/reset-password-request', [PasswordResetRequestController::class, 'sendPasswordResetEmail']);
@@ -43,5 +43,6 @@ Route::middleware(['api', 'auth'])->group(function () { // a remetre apres integ
         Route::put('user/restore/{user}', [UserController::class, 'restore']);
         Route::get('dashboard', DashboardController::class);
         Route::apiResource('crud', CrudController::class);
+        Route::get('student/student-exel', [UserController::class, 'donwloadExcelToSubscripbeStudent']);
     });
 });

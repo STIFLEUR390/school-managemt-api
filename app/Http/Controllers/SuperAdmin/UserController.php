@@ -75,6 +75,10 @@ class UserController extends BaseController
             $response = $newUser->bulk_student_create($request);
         }
 
+        if ($request->role == "student" && $request->method == 'excel') {
+            $response = $newUser->exel_student_create($request);
+        }
+
         // return response()->json($response);
         return $response;
     }
@@ -93,6 +97,11 @@ class UserController extends BaseController
             $user = User::findOrFail($id);
         }
         return $this->sendResponse( new UserResource($user));
+    }
+
+    public function donwloadExcelToSubscripbeStudent(CreateUser $user)
+    {
+        $user->exportXlsFileToCreateStudent();
     }
 
     /**
