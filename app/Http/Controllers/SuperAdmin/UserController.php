@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\{BaseController, Controller};
-use App\Http\Resources\SuperAdmin\{TeacherResource, UserResource};
-use App\Models\{Teacher, User};
+use App\Http\Resources\SuperAdmin\{StudentResource, TeacherResource, UserResource};
+use App\Models\{Student, Teacher, User};
 use App\Services\User\{CreateUser, DeleteUser, UpdateUser};
 use Illuminate\Http\Request;
 
@@ -23,7 +23,12 @@ class UserController extends BaseController
                     $q->withTrashed()->get();
                 }])->get();
                 $response = TeacherResource::collection($users);
-            } else {
+            }else if($request->role == 'student'){
+                $users = Student::with(['enrols.classes', 'enrols.section', 'tutor', 'user' => function($q) {
+                    $q->withTrashed()->get();
+                }])->get();
+                $response = StudentResource::collection($users);
+            }else {
                 $users = User::whereRole($request->role)->withTrashed()->get();
                 $response = UserResource::collection($users);
             }

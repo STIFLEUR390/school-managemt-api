@@ -20,4 +20,8 @@ class SessionApp extends Model
     {
         return $this->hasMany(Syllabuse::class);
     }
+
+    public function student(){
+        return $this->hasOne(Student::class, 'student_id');
+    }
 }

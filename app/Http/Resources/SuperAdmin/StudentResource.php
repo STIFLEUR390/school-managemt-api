@@ -4,7 +4,7 @@ namespace App\Http\Resources\SuperAdmin;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ClasseResource extends JsonResource
+class StudentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +17,11 @@ class ClasseResource extends JsonResource
         // return parent::toArray($request);
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'sections' => new SectionResource($this->whenLoaded('sections')),
-            'school' => new SchoolResource($this->whenLoaded('school'))
+            'matricule' => $this->code,
+            'user' => new UserResource($this->whenLoaded('user')),
+            'parent' => new TutorResource($this->whenLoaded('tutor')),
+            'session' => new SessionResource($this->whenLoaded('session')),
+            'enrol' => new EnrolResource($this->whenLoaded('enrols'))
         ];
     }
 }

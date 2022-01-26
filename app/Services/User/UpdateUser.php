@@ -3,7 +3,7 @@
 namespace App\Services\User;
 
 use App\Http\Controllers\BaseController;
-use App\Models\{Teacher, User};
+use App\Models\{Enrol, Student, Teacher, User};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -277,6 +277,71 @@ class UpdateUser extends BaseController
         $response = array(
             'status' => true,
             'notification' => 'teacher_has_been_updated_successfully'
+        );
+
+        return $this->sendResponse($response);
+    }
+
+    public function update_student(Request $request)
+    {
+        $customMessages = [
+            'email.unique' => 'sorry_this_email_has_been_taken',
+            'blood_group.required' => 'required_blood_group',
+            'phone.unique' => 'sorry_this_phone_has_been_taken',
+        ];
+
+        $rules = [
+            'name' => 'required|string|min:3',
+            'email' => 'required|email|unique:users,email,'. $request->user_id .'',
+            // 'password' => 'required|string|min:6',
+            'phone' => 'required|string|min:9|max:9|unique:users,phone,'. $request->user_id .'',
+            'gender' => 'required|in:male,female,others',
+            'blood_group' => 'required|in:O+,O-,A+,A-,B+,B-,AB+,AB-',
+            'address' => 'required|string',
+            'image' => 'file|mimes:jpeg,bmp,png,jpg,gif'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $customMessages);
+
+        if ($validator->fails()) {
+            // return response()->json($validator->errors(), 422);
+            return $this->sendError($validator->errors(), 422);
+        }
+        // creation de l'utilisateur
+        $user = User::find($request->user_id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->birthday = $request->birthday;
+        $user->phone = $request->phone;
+        $user->gender = $request->gender;
+        $user->blood_group = $request->blood_group;
+        $user->address = $request->address;
+
+        if ($request->file('image')) {
+    		$file = $request->file('image');
+            if ($user->image != 'upload/avatar.jpg') {
+                @unlink(public_path($user->image));
+            }
+    		$filename = date('YmdHi').$file->getClientOriginalName();
+    		$file->move(public_path('upload/users'),$filename);
+    		$user->image = 'upload/users/'.$filename;
+    	}
+
+        $user->save();
+
+        $tutor = User::with('tutor')->whereId($request->parent_id)->first();
+        $student = Student::find($request->student_id);
+        $student->tutor_id = $tutor->tutor->id;
+        $student->save();
+
+        $enrol = Enrol::find($request->enrol_id);
+        $enrol->class_id = $request->class_id;
+        $enrol->section_id = $request->section_id;
+        $enrol->save();
+
+        $response = array(
+            'status' => true,
+            'notification' => 'student_updated_successfully'
         );
 
         return $this->sendResponse($response);

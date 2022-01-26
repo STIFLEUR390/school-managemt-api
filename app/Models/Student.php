@@ -45,4 +45,8 @@ class Student extends Model
     {
         return $this->hasMany(Mark::class);
     }
+
+    public function session(){
+        return $this->belongsTo(SessionApp::class, 'session_app');
+    }
 }
