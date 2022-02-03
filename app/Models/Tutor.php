@@ -13,7 +13,7 @@ class Tutor extends Model
 
     public function user()
     {
-        return $this->belongsTo(School::class);
+        return $this->belongsTo(User::class);
     }
 
     public function school()

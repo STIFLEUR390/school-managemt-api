@@ -24,7 +24,9 @@ class UserController extends BaseController
                 }])->get();
                 $response = TeacherResource::collection($users);
             }else if($request->role == 'student'){
-                $users = Student::with(['enrols.classes', 'enrols.section', 'tutor', 'user' => function($q) {
+                $users = Student::whereHas('enrols', function ($query) use ($request) {
+                    $query->where('class_id', $request->class_id)->where('section_id', $request->section_id);
+                })->with(['enrols.classes', 'enrols.section', 'tutor.user', 'user' => function($q) {
                     $q->withTrashed()->get();
                 }])->get();
                 $response = StudentResource::collection($users);
@@ -98,10 +100,17 @@ class UserController extends BaseController
     {
         if ($request->role == 'teacher') {
             $user = User::with(['teacher.department'])->whereId($id)->first();
+            $response = $this->sendResponse( new UserResource($user));
+        }else if($request->role == 'student'){
+            $user = Student::with(['enrols.classes', 'enrols.section', 'tutor.user', 'user' => function($q) {
+                $q->withTrashed()->get();
+            }])->whereId($id)->first();
+            $response = new StudentResource($user);
         } else {
             $user = User::findOrFail($id);
+            $response = $this->sendResponse( new UserResource($user));
         }
-        return $this->sendResponse( new UserResource($user));
+        return $response;
     }
 
     public function donwloadExcelToSubscripbeStudent(CreateUser $user)
@@ -146,6 +155,10 @@ class UserController extends BaseController
 
         else if ($request->role == "parent") {
             $response = $updateUser->update_parent($request, $id);
+        }
+
+        else if ($request->role == "student") {
+            $response = $updateUser->update_student($request);
         }
         else {
             // $response = $this->sendError('Erreur');
